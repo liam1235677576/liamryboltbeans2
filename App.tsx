@@ -4,8 +4,9 @@ import { Routes, Route, useLocation, useParams, Navigate } from 'react-router-do
 import { Header } from './components/Header';
 import { GameCard } from './components/GameCard';
 import { GamePlayer } from './components/GamePlayer';
+import { GAMES_DATA } from './data/games';
 import { Category, Game } from './types';
-import { Flame, Trophy, Ghost, Zap, Loader2 } from 'lucide-react';
+import { Flame, Trophy, Ghost, Zap } from 'lucide-react';
 
 const CATEGORIES: Category[] = ['All', 'Action', 'Puzzle', 'Sports', 'Arcade', 'Strategy', 'Retro'];
 
@@ -34,18 +35,21 @@ const GameGridPage: React.FC<{
           <div className="relative z-10 max-w-2xl">
             <div className="flex items-center gap-2 text-indigo-200 font-bold tracking-widest text-xs uppercase mb-4">
               <Zap className="w-4 h-4 fill-current" />
-              New Release
+              Top Rated Selection
             </div>
             <h1 className="font-orbitron text-4xl sm:text-6xl font-black text-white mb-6 leading-[1.1]">
               Level Up Your <br />
               <span className="text-indigo-950">Free Time.</span>
             </h1>
             <p className="text-indigo-100 text-lg mb-8 max-w-md">
-              High-quality, lag-free games available anywhere. No downloads, no blocked proxies, just pure fun.
+              Lag-free unblocked games available anywhere. No downloads required, just instant arcade action.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all hover:scale-105">
-                Play Featured
+              <button 
+                onClick={() => setActiveCategory('Arcade')}
+                className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all hover:scale-105"
+              >
+                Browse Arcade
               </button>
             </div>
           </div>
@@ -59,12 +63,12 @@ const GameGridPage: React.FC<{
           {onlyFavorites ? (
             <>
               <Flame className="w-6 h-6 text-red-500" />
-              Your Favorite Games
+              Your Favorites
             </>
           ) : (
             <>
               <Trophy className="w-6 h-6 text-amber-500" />
-              {activeCategory === 'All' ? 'Discover All Games' : `${activeCategory} Games`}
+              {activeCategory === 'All' ? 'Latest Games' : `${activeCategory} Collection`}
             </>
           )}
         </h2>
@@ -105,7 +109,7 @@ const GameGridPage: React.FC<{
             <Ghost className="w-8 h-8 text-slate-500" />
           </div>
           <h3 className="text-xl font-bold text-slate-200 mb-2">No games found</h3>
-          <p className="text-slate-500">Try adjusting your search or filters.</p>
+          <p className="text-slate-500">Try adjusting your filters or search term.</p>
         </div>
       )}
     </div>
@@ -115,23 +119,9 @@ const GameGridPage: React.FC<{
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [games, setGames] = useState<Game[]>([]);
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
-    // Fetch games from JSON file
-    fetch('./games.json')
-      .then(res => res.json())
-      .then(data => {
-        setGames(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Failed to load games:", err);
-        setLoading(false);
-      });
-
     const stored = localStorage.getItem('nova_favorites');
     if (stored) {
       try {
@@ -159,19 +149,8 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-950">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
-          <span className="font-orbitron text-indigo-300 animate-pulse tracking-widest text-sm uppercase">Initializing Arcade</span>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
       <Header onSearch={setSearchTerm} favoritesCount={favorites.length} />
       
       <main className="flex-1">
@@ -181,7 +160,7 @@ export default function App() {
               searchTerm={searchTerm} 
               favorites={favorites} 
               toggleFavorite={toggleFavorite} 
-              games={games}
+              games={GAMES_DATA}
             />
           } />
           <Route path="/favorites" element={
@@ -189,13 +168,13 @@ export default function App() {
               searchTerm={searchTerm} 
               favorites={favorites} 
               toggleFavorite={toggleFavorite}
-              games={games}
+              games={GAMES_DATA}
               onlyFavorites
             />
           } />
           <Route path="/play/:id" element={
             <GamePlayerRoute 
-              games={games}
+              games={GAMES_DATA}
               favorites={favorites} 
               toggleFavorite={(id) => toggleFavorite(id, id)} 
             />
@@ -204,15 +183,17 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 py-12 px-4 mt-12">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="bg-indigo-600 p-1.5 rounded-lg">
-              <Zap className="w-5 h-5 text-white" />
+      <footer className="bg-slate-900 border-t border-slate-800 py-8 px-4 mt-12">
+        <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="bg-indigo-600 p-1 rounded-lg">
+              <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="font-orbitron text-lg font-bold">NOVAARCADE</span>
+            <span className="font-orbitron text-sm font-bold tracking-widest">NOVAARCADE</span>
           </div>
-          <p className="text-slate-500 text-xs italic">&copy; {new Date().getFullYear()} NovaArcade. No AI features included.</p>
+          <p className="text-slate-500 text-[10px] uppercase tracking-widest font-medium">
+            Lag-Free & Unblocked &bull; No AI Tracking &bull; {new Date().getFullYear()}
+          </p>
         </div>
       </footer>
     </div>
