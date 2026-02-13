@@ -1,52 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LiamRyboltBeans | Unblocked Games</title>
+  <title>LiamRyboltBeans | Unblocked Gaming Hub</title>
   
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫘</text></svg>">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0f172a;
+      background-color: #020617;
       color: #f8fafc;
       overflow-x: hidden;
       margin: 0;
     }
     .font-orbitron { font-family: 'Orbitron', sans-serif; }
     ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+    
+    .game-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      background: #000;
+      border-radius: 1.5rem 1.5rem 0 0;
+      overflow: hidden;
+    }
+    #sandboxFrame, .game-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      background: #000;
+    }
+    
+    .blue-solid-logo {
+      background-color: #3b82f6; /* Tailwind blue-500 */
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .group:hover .blue-solid-logo {
+      background-color: #2563eb; /* Tailwind blue-600 */
+      transform: scale(1.05);
+    }
 
-    #root:empty {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: #0f172a;
+    /* Add a subtle scanline effect to the solid blue to make it look "techy" */
+    .blue-solid-logo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
     }
-    #root:empty::after {
-      content: "BOOTING LIAM ENGINE...";
-      font-family: 'Orbitron', sans-serif;
-      font-size: 14px;
-      letter-spacing: 0.3em;
-      color: #6366f1;
-      animation: pulse 1.5s infinite;
+
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.98); }
+    .animate-pulse-slow {
+      animation: pulse-slow 3s infinite;
     }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 
-  <!-- Babel Standalone -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="importmap">
@@ -65,65 +91,107 @@
   <div id="root"></div>
 
   <script type="text/babel" data-presets="react" data-type="module">
-    import React, { useState, useEffect, useMemo, useRef } from 'react';
+    import React, { useState, useEffect, useMemo } from 'react';
     import ReactDOM from 'react-dom/client';
-    import { HashRouter, Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
-    import { Gamepad2, Search, Heart, Star, Maximize2, RotateCcw, ArrowLeft, Ghost } from 'lucide-react';
+    import { HashRouter, Routes, Route, Link, useParams, Navigate } from 'react-router-dom';
+    import { Search, Heart, Maximize2, RotateCcw, ArrowLeft, Play, Sparkles, Trophy, Layers, AlertCircle, Terminal, Zap, Filter, Gamepad2 } from 'lucide-react';
+
+    // --- CONSTANTS ---
+    const DEFAULT_GAMES = [
+      {
+        id: "moto-x3m",
+        title: "Moto X3M",
+        description: "Perform insane flips and dodge deadly obstacles in the ultimate bike racing game.",
+        category: "Racing",
+        iframeUrl: "https://script.google.com/macros/s/AKfycbw7_zG02ZMXnPSdwCx0CcmN8eX_0Bk3715TSP-Eglb1DyVhp7RxShuXq4qJ8Q2s7cnW/exec"
+      },
+      {
+        id: "moto-x3m-2",
+        title: "Moto X3M 2",
+        description: "The sequel to the legendary bike racing game. More levels, more obstacles, and more flips!",
+        category: "Racing",
+        iframeUrl: `<iframe id="sandboxFrame" width="100%" height="100%" src="https://script.google.com/macros/s/AKfycbxFMlvpCwA1vZ0hGwNZ32IZnq9uUoCVS3lJxBpIdjqU9Nf2Pp89i-Fmx0YaryI3fIc/exec" frameborder="0" allowfullscreen=""></iframe>`
+      },
+      {
+        id: "moto-x3m-3",
+        title: "Moto X3M 3",
+        description: "The third installment of the legendary Moto X3M series. Even crazier tracks and obstacles await.",
+        category: "Racing",
+        iframeUrl: `<iframe id="sandboxFrame" width="100%" height="100%" src="https://script.google.com/macros/s/AKfycbw3x1GjtXTLFlreYVz4puHyTJRaf0-BRwYQcVBpFf3UeocoMwo_ZnUG6s-kgHLe4CqvSw/exec" frameborder="0" allowfullscreen=""></iframe>`
+      },
+      {
+        id: "slope",
+        title: "Slope",
+        description: "A high-speed 3D running game. Control a ball rolling down a steep slope and avoid obstacles.",
+        category: "Action",
+        iframeUrl: "https://kdata1.com/2020/05/slope/"
+      }
+    ];
 
     // --- COMPONENTS ---
 
     const Header = ({ onSearch, favoritesCount }) => (
-      <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+      <header className="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="bg-indigo-600 p-2 rounded-lg group-hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-500/20">
-              <Gamepad2 className="w-6 h-6 text-white" />
+            <div className="bg-blue-500 p-2 rounded-xl group-hover:bg-blue-400 transition-all shadow-lg shadow-blue-500/20 group-hover:rotate-12 w-10 h-10 flex items-center justify-center text-xl">
+              🫘
             </div>
-            <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block">
-              LIAMRYBOLT<span className="text-indigo-500">BEANS</span>
+            <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block text-white uppercase">
+              LiamRybolt<span className="text-blue-500">Beans</span>
             </span>
           </Link>
           <div className="flex-1 max-w-xl relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search library..."
+              placeholder="Search unblocked library..."
               onChange={(e) => onSearch(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-100"
+              className="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-slate-100"
             />
           </div>
-          <Link to="/favorites" className="p-2 hover:bg-slate-800 rounded-lg relative">
-            <Heart className="w-5 h-5 text-slate-300" />
-            {favoritesCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
-                {favoritesCount}
-              </span>
-            )}
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/favorites" className="p-2 hover:bg-slate-800 rounded-lg relative group">
+              <Heart className="w-5 h-5 text-slate-300 group-hover:text-blue-500 transition-colors" />
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-blue-500 text-slate-900 text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
+            </Link>
+          </div>
         </div>
       </header>
     );
 
     const GameCard = ({ game, isFavorite, toggleFavorite }) => (
-      <div className="group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-2xl">
+      <div className="group relative bg-slate-800/40 rounded-3xl overflow-hidden border border-slate-800 hover:border-blue-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.3)]">
         <Link to={`/play/${game.id}`} className="block">
-          <div className="aspect-video relative overflow-hidden bg-slate-900">
-            <img 
-              src={game.thumbnail} 
-              alt={game.title} 
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1550741111-3d5d71402031?q=80&w=400'; }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+          <div className="aspect-video relative overflow-hidden bg-slate-900 flex items-center justify-center">
+            {/* Solid Blue Placeholder with Icon */}
+            <div className="w-full h-full blue-solid-logo flex items-center justify-center">
+              <Gamepad2 className="w-16 h-16 text-blue-100/30 group-hover:text-blue-100/50 transition-colors" />
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/20 to-transparent" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-blue-900/40 backdrop-blur-[2px]">
+               <div className="bg-blue-500 p-4 rounded-full shadow-2xl scale-75 group-hover:scale-100 transition-transform">
+                  <Play className="w-8 h-8 text-slate-950 fill-current ml-1" />
+               </div>
+            </div>
           </div>
-          <div className="p-4">
-            <h3 className="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors truncate">{game.title}</h3>
-            <p className="text-xs text-slate-400 line-clamp-1 mt-1">{game.description}</p>
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-orbitron text-blue-500 uppercase tracking-widest">{game.category}</span>
+              <Trophy className="w-3 h-3 text-blue-500/50" />
+            </div>
+            <h3 className="text-xl font-bold text-white font-orbitron mb-2 group-hover:text-blue-400 transition-colors tracking-tight">{game.title}</h3>
+            <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">{game.description}</p>
           </div>
         </Link>
         <button
           onClick={(e) => { e.preventDefault(); toggleFavorite(game.id); }}
-          className={`absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md transition-all ${isFavorite ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-900/50 text-slate-300 hover:bg-slate-900/80'}`}
+          className={`absolute top-4 right-4 p-2.5 rounded-2xl backdrop-blur-xl transition-all ${isFavorite ? 'bg-blue-500 text-slate-950' : 'bg-slate-950/60 text-slate-300 hover:text-blue-500'}`}
         >
           <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
         </button>
@@ -131,105 +199,202 @@
     );
 
     const GamePlayer = ({ game, isFavorite, toggleFavorite }) => {
-      const [isLoading, setIsLoading] = useState(true);
-      const iframeRef = useRef(null);
+      const reloadModule = () => {
+        const frame = document.getElementById('sandboxFrame');
+        if (frame) {
+          const src = frame.src;
+          frame.src = "";
+          setTimeout(() => { frame.src = src; }, 10);
+        }
+      };
+
+      const requestFullscreen = () => {
+        const frame = document.getElementById('sandboxFrame');
+        if (frame) {
+          if (frame.requestFullscreen) frame.requestFullscreen();
+          else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+          else if (frame.msRequestFullscreen) frame.msRequestFullscreen();
+        }
+      };
+
+      const rawIframeString = useMemo(() => {
+        if (game.iframeUrl.includes('<iframe')) {
+           return game.iframeUrl.replace('<iframe', '<iframe id="sandboxFrame"');
+        }
+        return `<iframe id="sandboxFrame" src="${game.iframeUrl}" allowfullscreen></iframe>`;
+      }, [game]);
 
       return (
-        <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
-          <div className="mb-6 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
-              <ArrowLeft className="w-4 h-4" />
-              <span className="text-sm font-medium">Exit Game</span>
+        <div className="max-w-6xl mx-auto p-4 md:p-8 animate-in fade-in slide-in-from-bottom-8 duration-500">
+          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+            <Link to="/" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+              <span className="font-orbitron text-xs tracking-widest uppercase">Go_Back</span>
             </Link>
+            <div className="flex gap-4">
+               <button onClick={() => toggleFavorite(game.id)} className={`px-6 py-2.5 rounded-2xl text-xs font-orbitron flex items-center gap-2 transition-all ${isFavorite ? 'bg-blue-500/10 text-blue-500' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
+                 <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+                 {isFavorite ? 'SAVED' : 'SAVE'}
+               </button>
+            </div>
           </div>
-          <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
-            <div className="relative aspect-video w-full bg-slate-950">
-              {isLoading && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 z-10">
-                  <div className="w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-4" />
-                  <p className="text-slate-400 font-medium text-sm">Initializing {game.title}...</p>
-                </div>
-              )}
-              <iframe
-                ref={iframeRef}
-                src={game.iframeUrl}
-                className="w-full h-full border-none"
-                onLoad={() => setIsLoading(false)}
-                allow="fullscreen; autoplay; encrypted-media"
-              />
+
+          <div className="bg-slate-900 rounded-[2.5rem] border border-slate-800 overflow-hidden shadow-2xl shadow-blue-500/10">
+            <div 
+              className="game-container" 
+              dangerouslySetInnerHTML={{ __html: rawIframeString }}
+            />
+            
+            <div className="p-8 flex flex-col md:flex-row justify-between items-center gap-8 bg-slate-900 border-t border-slate-800">
+              <div className="text-center md:text-left">
+                <h1 className="text-3xl font-bold font-orbitron text-white tracking-widest uppercase mb-2 flex items-center justify-center md:justify-start gap-3">
+                  {game.title}
+                  <Zap className="w-5 h-5 text-blue-500 animate-pulse" />
+                </h1>
+                <p className="text-[10px] text-slate-500 font-orbitron tracking-tighter uppercase flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                  STATUS: SECURE_TUNNEL_ACTIVE
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <button 
+                  onClick={reloadModule}
+                  title="Reload Session"
+                  className="p-5 bg-slate-800 text-slate-400 hover:text-blue-500 hover:bg-slate-700 rounded-2xl transition-all border border-slate-700"
+                >
+                  <RotateCcw className="w-6 h-6" />
+                </button>
+                <button 
+                  onClick={requestFullscreen} 
+                  className="px-8 py-5 bg-blue-500 text-slate-950 hover:bg-blue-400 rounded-2xl transition-all shadow-xl shadow-blue-500/20 font-orbitron text-sm font-bold flex items-center gap-3"
+                >
+                  <Maximize2 className="w-5 h-5" />
+                  FULLSCREEN
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 p-8 bg-slate-900/50 rounded-3xl border border-slate-800/50">
+               <h2 className="font-orbitron text-white text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
+                 <Terminal className="w-4 h-4 text-blue-500" />
+                 Game_Info
+               </h2>
+               <div className="text-slate-400 text-sm leading-relaxed space-y-4">
+                 <p>{game.description}</p>
+                 <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 font-mono text-xs">
+                    <p className="text-blue-500/70 mb-2">// META_DATA</p>
+                    <p>MODULE: <span className="text-white">{game.id}</span></p>
+                    <p>CATEGORY: <span className="text-white">{game.category}</span></p>
+                 </div>
+               </div>
+            </div>
+            <div className="p-8 bg-blue-500/5 rounded-3xl border border-blue-500/20">
+               <div className="flex items-center gap-3 mb-4">
+                 <AlertCircle className="w-5 h-5 text-blue-500" />
+                 <h3 className="font-orbitron text-blue-500 text-sm tracking-widest uppercase">Advisory</h3>
+               </div>
+               <p className="text-[10px] text-slate-500 leading-relaxed font-orbitron uppercase tracking-widest">
+                 Games are proxied for accessibility. If a game fails to load, try refreshing or checking your network connection.
+               </p>
             </div>
           </div>
         </div>
       );
     };
 
-    // --- APP ---
-
     const App = () => {
       const [searchTerm, setSearchTerm] = useState('');
+      const [activeCategory, setActiveCategory] = useState('All');
       const [favorites, setFavorites] = useState([]);
-      const [games, setGames] = useState([]);
+      const [games, setGames] = useState(DEFAULT_GAMES);
 
       useEffect(() => {
-        // Cache busting using a timestamp prevents the browser from loading old game data
         fetch(`./games.json?t=${Date.now()}`)
           .then(res => res.json())
           .then(data => {
-            console.log("Loaded library data:", data);
-            setGames(Array.isArray(data) ? data : []);
+            if (Array.isArray(data) && data.length > 0) {
+              setGames(data);
+            }
           })
-          .catch(() => {
-            console.log("No library data found.");
-            setGames([]);
-          });
+          .catch(() => console.log("System: Local DB Used."));
 
-        const stored = localStorage.getItem('nova_favorites');
+        const stored = localStorage.getItem('bean_favorites');
         if (stored) setFavorites(JSON.parse(stored));
       }, []);
 
       const toggleFavorite = (id) => {
         setFavorites(prev => {
           const next = prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id];
-          localStorage.setItem('nova_favorites', JSON.stringify(next));
+          localStorage.setItem('bean_favorites', JSON.stringify(next));
           return next;
         });
       };
 
+      const categories = ['All', ...new Set(games.map(g => g.category))];
+
       const filteredGames = useMemo(() => {
-        return games.filter(game => 
-          game.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      }, [searchTerm, games]);
+        return games.filter(game => {
+          const matchesSearch = game.title.toLowerCase().includes(searchTerm.toLowerCase());
+          const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
+          return matchesSearch && matchesCategory;
+        });
+      }, [searchTerm, activeCategory, games]);
 
       return (
-        <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+        <div className="min-h-screen flex flex-col bg-[#020617] text-slate-100">
           <Header onSearch={setSearchTerm} favoritesCount={favorites.length} />
           <main className="flex-1">
             <Routes>
               <Route path="/" element={
-                <div className="max-w-7xl mx-auto px-4 py-8">
+                <div className="max-w-7xl mx-auto px-4 py-16">
+                  <div className="mb-16 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                    <div className="border-l-4 border-blue-500 pl-8 py-3">
+                      <h1 className="text-5xl font-black font-orbitron tracking-tighter mb-4 text-white uppercase italic">Game_Jar</h1>
+                      <p className="text-slate-400 max-w-lg font-medium text-sm leading-loose tracking-wide">
+                        Curated unblocked modules. Everything monochrome blue. v3.2.0
+                      </p>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2">
+                      {categories.map(cat => (
+                        <button
+                          key={cat}
+                          onClick={() => setActiveCategory(cat)}
+                          className={`px-6 py-2 rounded-full text-[10px] font-orbitron uppercase tracking-[0.2em] transition-all border ${activeCategory === cat ? 'bg-blue-500 text-slate-950 border-blue-500' : 'bg-slate-900 text-slate-400 border-slate-800 hover:border-slate-600'}`}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  
                   {filteredGames.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                      {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                      {filteredGames.map(game => (
+                        <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />
+                      ))}
                     </div>
                   ) : (
-                    <div className="text-center py-32 bg-slate-900/20 rounded-3xl border border-dashed border-slate-800">
-                      <Ghost className="w-16 h-16 text-slate-700 mx-auto mb-6" />
-                      <h3 className="text-2xl font-bold text-slate-400 uppercase tracking-widest font-orbitron">Vault Empty</h3>
-                      <p className="text-slate-600 mt-2 max-w-sm mx-auto">Update games.json to populate the LiamRyboltBeans arcade.</p>
+                    <div className="text-center py-32 opacity-50 font-orbitron uppercase tracking-widest text-slate-500">
+                      No_Modules_Found
                     </div>
                   )}
                 </div>
               } />
               <Route path="/favorites" element={
-                <div className="max-w-7xl mx-auto px-4 py-8">
-                  <h2 className="text-2xl font-bold mb-8 flex items-center gap-3"><Heart className="w-6 h-6 text-red-500" />Saved Favorites</h2>
+                <div className="max-w-7xl mx-auto px-4 py-16">
+                  <h2 className="text-3xl font-black mb-12 flex items-center gap-4 font-orbitron uppercase"><Heart className="w-8 h-8 text-blue-500" />Saved_Jar</h2>
                   {games.filter(g => favorites.includes(g.id)).length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
                       {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
                     </div>
                   ) : (
-                    <div className="text-center py-12 text-slate-500 italic">No saved items found.</div>
+                    <div className="text-center py-32 bg-slate-900/10 rounded-[3rem] border border-dashed border-slate-800">
+                      <p className="text-slate-500 font-orbitron tracking-[0.3em] uppercase">Storage_Empty</p>
+                      <Link to="/" className="inline-block mt-8 text-blue-500 font-orbitron text-xs hover:underline uppercase tracking-widest">Browse_Games</Link>
+                    </div>
                   )}
                 </div>
               } />
@@ -237,7 +402,19 @@
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
-          <footer className="py-8">
+          <footer className="py-16 border-t border-slate-900 bg-slate-950/50">
+            <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+               <div className="flex items-center gap-4">
+                 <div className="text-3xl">🫘</div>
+                 <div className="flex flex-col">
+                    <span className="font-orbitron text-sm font-bold text-white tracking-widest uppercase">LiamRyboltBeans</span>
+                    <span className="font-orbitron text-[8px] text-slate-600 tracking-[0.5em] uppercase mt-1">Direct Access Hub</span>
+                 </div>
+               </div>
+               <div className="text-[10px] text-slate-700 font-orbitron tracking-widest uppercase bg-slate-900/50 px-6 py-2 rounded-full border border-slate-800">
+                 System_Status: Optimal // v3.2.0
+               </div>
+            </div>
           </footer>
         </div>
       );
@@ -246,7 +423,7 @@
     const PlayWrapper = ({ games, favorites, toggleFavorite }) => {
       const { id } = useParams();
       const game = games.find(g => g.id === id);
-      if (!game) return <div className="p-12 text-center text-slate-500 font-orbitron">ASSET_NOT_FOUND</div>;
+      if (!game) return <div className="p-32 text-center text-slate-500 font-orbitron tracking-widest animate-pulse uppercase">Module_Unavailable</div>;
       return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
     };
 
