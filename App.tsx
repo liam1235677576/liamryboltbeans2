@@ -29,27 +29,30 @@ const GameGridPage: React.FC<{
   }, [searchTerm, activeCategory, favorites, onlyFavorites, games]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in duration-700">
-      {!onlyFavorites && !searchTerm && (
-        <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-indigo-600 p-8 sm:p-12">
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      {!onlyFavorites && !searchTerm && activeCategory === 'All' && (
+        <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-indigo-600 p-8 sm:p-12 shadow-2xl shadow-indigo-500/20">
           <div className="relative z-10 max-w-2xl">
             <div className="flex items-center gap-2 text-indigo-200 font-bold tracking-widest text-xs uppercase mb-4">
               <Zap className="w-4 h-4 fill-current" />
-              Top Rated Selection
+              Instant Play Enabled
             </div>
             <h1 className="font-orbitron text-4xl sm:text-6xl font-black text-white mb-6 leading-[1.1]">
-              Level Up Your <br />
-              <span className="text-indigo-950">Free Time.</span>
+              The Hub for <br />
+              <span className="text-indigo-950">Unblocked Fun.</span>
             </h1>
             <p className="text-indigo-100 text-lg mb-8 max-w-md">
-              Lag-free unblocked games available anywhere. No downloads required, just instant arcade action.
+              A curated collection of lag-free games. No accounts, no trackers, just pure gameplay.
             </p>
             <div className="flex flex-wrap gap-4">
               <button 
-                onClick={() => setActiveCategory('Arcade')}
-                className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all hover:scale-105"
+                onClick={() => {
+                  const el = document.getElementById('game-grid-header');
+                  el?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all hover:scale-105 active:scale-95"
               >
-                Browse Arcade
+                Browse Collection
               </button>
             </div>
           </div>
@@ -58,17 +61,17 @@ const GameGridPage: React.FC<{
         </section>
       )}
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+      <div id="game-grid-header" className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 scroll-mt-24">
         <h2 className="text-2xl font-bold flex items-center gap-3">
           {onlyFavorites ? (
             <>
               <Flame className="w-6 h-6 text-red-500" />
-              Your Favorites
+              Saved Favorites
             </>
           ) : (
             <>
               <Trophy className="w-6 h-6 text-amber-500" />
-              {activeCategory === 'All' ? 'Latest Games' : `${activeCategory} Collection`}
+              {activeCategory === 'All' ? 'Latest Discoveries' : `${activeCategory} Classics`}
             </>
           )}
         </h2>
@@ -108,8 +111,8 @@ const GameGridPage: React.FC<{
           <div className="inline-flex p-4 bg-slate-800 rounded-2xl mb-4">
             <Ghost className="w-8 h-8 text-slate-500" />
           </div>
-          <h3 className="text-xl font-bold text-slate-200 mb-2">No games found</h3>
-          <p className="text-slate-500">Try adjusting your filters or search term.</p>
+          <h3 className="text-xl font-bold text-slate-200 mb-2">The arcade is empty</h3>
+          <p className="text-slate-500">No games match your current filter.</p>
         </div>
       )}
     </div>
@@ -127,7 +130,7 @@ export default function App() {
       try {
         setFavorites(JSON.parse(stored));
       } catch (e) {
-        console.error('Failed to parse favorites', e);
+        console.warn('Favorites cache invalid');
       }
     }
   }, []);
@@ -183,7 +186,7 @@ export default function App() {
         </Routes>
       </main>
 
-      <footer className="bg-slate-900 border-t border-slate-800 py-8 px-4 mt-12">
+      <footer className="bg-slate-900 border-t border-slate-800 py-10 px-4 mt-12">
         <div className="max-w-7xl mx-auto flex flex-col items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             <div className="bg-indigo-600 p-1 rounded-lg">
@@ -192,7 +195,7 @@ export default function App() {
             <span className="font-orbitron text-sm font-bold tracking-widest">NOVAARCADE</span>
           </div>
           <p className="text-slate-500 text-[10px] uppercase tracking-widest font-medium">
-            Lag-Free & Unblocked &bull; No AI Tracking &bull; {new Date().getFullYear()}
+            Lag-Free & Unblocked &bull; Developed by Nova &bull; {new Date().getFullYear()}
           </p>
         </div>
       </footer>
