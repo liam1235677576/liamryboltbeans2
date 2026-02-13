@@ -87,7 +87,7 @@
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search games..."
+              placeholder="Search library..."
               onChange={(e) => onSearch(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-100"
             />
@@ -168,7 +168,7 @@
             <div className="bg-slate-800/80 p-4 flex items-center justify-between">
               <div>
                 <h2 className="font-bold text-slate-100">{game.title}</h2>
-                <p className="text-xs text-slate-400">Lag-Free & Unblocked Experience</p>
+                <p className="text-xs text-slate-400">Lag-Free Experience</p>
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => { setIsLoading(true); iframeRef.current.src = iframeRef.current.src; }} className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg"><RotateCcw className="w-5 h-5" /></button>
@@ -186,16 +186,13 @@
       const [searchTerm, setSearchTerm] = useState('');
       const [favorites, setFavorites] = useState([]);
       const [games, setGames] = useState([]);
-      const [activeCategory, setActiveCategory] = useState('All');
 
       useEffect(() => {
+        // Fetch strictly from games.json
         fetch('./games.json')
           .then(res => res.json())
-          .then(data => setGames(data))
-          .catch(() => {
-            // Fallback to empty if JSON fails or is missing
-            setGames([]);
-          });
+          .then(data => setGames(Array.isArray(data) ? data : []))
+          .catch(() => setGames([]));
 
         const stored = localStorage.getItem('nova_favorites');
         if (stored) setFavorites(JSON.parse(stored));
@@ -210,12 +207,10 @@
       };
 
       const filteredGames = useMemo(() => {
-        return games.filter(game => {
-          const matchesSearch = game.title.toLowerCase().includes(searchTerm.toLowerCase());
-          const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
-          return matchesSearch && matchesCategory;
-        });
-      }, [searchTerm, activeCategory, games]);
+        return games.filter(game => 
+          game.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }, [searchTerm, games]);
 
       return (
         <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
@@ -224,42 +219,28 @@
             <Routes>
               <Route path="/" element={
                 <div className="max-w-7xl mx-auto px-4 py-8">
-                  {!searchTerm && activeCategory === 'All' && (
-                    <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-indigo-600 p-8 sm:p-12 shadow-2xl">
-                      <div className="relative z-10 max-w-2xl">
-                        <h1 className="font-orbitron text-4xl sm:text-6xl font-black text-white mb-6">Unblocked.<br /><span className="text-indigo-950">Lag-Free.</span></h1>
-                        <p className="text-indigo-100 text-lg mb-8">The ultimate destination for browser games that actually work.</p>
-                      </div>
-                      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-white/10 to-transparent -skew-x-12 translate-x-1/4" />
-                    </section>
-                  )}
-                  <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar mb-8">
-                    {['All', 'Action', 'Puzzle', 'Sports', 'Arcade', 'Retro'].map(cat => (
-                      <button key={cat} onClick={() => setActiveCategory(cat)} className={`whitespace-nowrap px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activeCategory === cat ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-800 text-slate-400 hover:text-slate-100'}`}>{cat}</button>
-                    ))}
-                  </div>
                   {filteredGames.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                       {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
                     </div>
                   ) : (
-                    <div className="text-center py-24 bg-slate-800/20 rounded-3xl border border-dashed border-slate-700">
-                      <Ghost className="w-12 h-12 text-slate-500 mx-auto mb-4" />
-                      <h3 className="text-xl font-bold text-slate-200">The arcade is empty</h3>
-                      <p className="text-slate-400 mt-2">No games found. Start adding some to games.json!</p>
+                    <div className="text-center py-32 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800">
+                      <Ghost className="w-16 h-16 text-slate-600 mx-auto mb-6" />
+                      <h3 className="text-2xl font-bold text-slate-300">The collection is currently empty</h3>
+                      <p className="text-slate-500 mt-2 max-w-sm mx-auto">No unblocked games are registered in the library. Populate games.json to begin.</p>
                     </div>
                   )}
                 </div>
               } />
               <Route path="/favorites" element={
                 <div className="max-w-7xl mx-auto px-4 py-8">
-                  <h2 className="text-2xl font-bold mb-8 flex items-center gap-3"><Heart className="w-6 h-6 text-red-500" />Favorites</h2>
+                  <h2 className="text-2xl font-bold mb-8 flex items-center gap-3"><Heart className="w-6 h-6 text-red-500" />Saved Favorites</h2>
                   {games.filter(g => favorites.includes(g.id)).length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                       {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
                     </div>
                   ) : (
-                    <div className="text-center py-12 text-slate-500 italic">No favorite games yet.</div>
+                    <div className="text-center py-12 text-slate-500 italic">You haven't saved any games yet.</div>
                   )}
                 </div>
               } />
@@ -267,7 +248,7 @@
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
-          <footer className="bg-slate-900 border-t border-slate-800 py-8 text-center mt-auto">
+          <footer className="border-t border-slate-900 py-12">
           </footer>
         </div>
       );
@@ -276,7 +257,7 @@
     const PlayWrapper = ({ games, favorites, toggleFavorite }) => {
       const { id } = useParams();
       const game = games.find(g => g.id === id);
-      if (!game) return <div className="p-12 text-center text-slate-500">Kernel Error: Game Asset Not Found</div>;
+      if (!game) return <div className="p-12 text-center text-slate-500">Asset Error: Game not found in library</div>;
       return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
     };
 
