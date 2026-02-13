@@ -4,9 +4,8 @@ import { Routes, Route, useLocation, useParams, Navigate } from 'react-router-do
 import { Header } from './components/Header';
 import { GameCard } from './components/GameCard';
 import { GamePlayer } from './components/GamePlayer';
-import { GAMES_DATA } from './data/games';
 import { Category, Game } from './types';
-import { Flame, Trophy, Ghost, Zap } from 'lucide-react';
+import { Flame, Trophy, Ghost, Zap, Loader2 } from 'lucide-react';
 
 const CATEGORIES: Category[] = ['All', 'Action', 'Puzzle', 'Sports', 'Arcade', 'Strategy', 'Retro'];
 
@@ -14,22 +13,22 @@ const GameGridPage: React.FC<{
   searchTerm: string, 
   favorites: string[], 
   toggleFavorite: (e: React.MouseEvent, id: string) => void,
-  onlyFavorites?: boolean
-}> = ({ searchTerm, favorites, toggleFavorite, onlyFavorites }) => {
+  onlyFavorites?: boolean,
+  games: Game[]
+}> = ({ searchTerm, favorites, toggleFavorite, onlyFavorites, games }) => {
   const [activeCategory, setActiveCategory] = useState<Category>('All');
 
   const filteredGames = useMemo(() => {
-    return GAMES_DATA.filter(game => {
+    return games.filter(game => {
       const matchesSearch = game.title.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
       const matchesFavorites = !onlyFavorites || favorites.includes(game.id);
       return matchesSearch && matchesCategory && matchesFavorites;
     });
-  }, [searchTerm, activeCategory, favorites, onlyFavorites]);
+  }, [searchTerm, activeCategory, favorites, onlyFavorites, games]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 animate-in fade-in duration-700">
-      {/* Hero Section (Only on Home) */}
       {!onlyFavorites && !searchTerm && (
         <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-indigo-600 p-8 sm:p-12">
           <div className="relative z-10 max-w-2xl">
@@ -48,13 +47,8 @@ const GameGridPage: React.FC<{
               <button className="bg-slate-900 text-white px-8 py-4 rounded-2xl font-bold hover:bg-slate-800 transition-all hover:scale-105">
                 Play Featured
               </button>
-              <button className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition-all">
-                Learn More
-              </button>
             </div>
           </div>
-          
-          {/* Abstract background blobs */}
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-white/10 to-transparent -skew-x-12 translate-x-1/4" />
           <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500 rounded-full blur-3xl opacity-50" />
         </section>
@@ -75,7 +69,6 @@ const GameGridPage: React.FC<{
           )}
         </h2>
 
-        {/* Categories Scroller */}
         {!onlyFavorites && (
           <div className="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar">
             {CATEGORIES.map(cat => (
@@ -119,31 +112,26 @@ const GameGridPage: React.FC<{
   );
 };
 
-const GamePlayerWrapper: React.FC<{
-  favorites: string[],
-  toggleFavorite: (id: string) => void
-}> = ({ favorites, toggleFavorite }) => {
-  const { id } = useParams<{ id: string }>();
-  const game = GAMES_DATA.find(g => g.id === id);
-
-  if (!game) return <Navigate to="/" />;
-
-  return (
-    <GamePlayer 
-      game={game} 
-      isFavorite={favorites.includes(game.id)} 
-      toggleFavorite={toggleFavorite} 
-    />
-  );
-};
-
 export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [games, setGames] = useState<Game[]>([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
-  // Load favorites from localStorage
   useEffect(() => {
+    // Fetch games from JSON file
+    fetch('./games.json')
+      .then(res => res.json())
+      .then(data => {
+        setGames(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load games:", err);
+        setLoading(false);
+      });
+
     const stored = localStorage.getItem('nova_favorites');
     if (stored) {
       try {
@@ -155,7 +143,6 @@ export default function App() {
   }, []);
 
   const toggleFavorite = (e: React.MouseEvent | string, id: string | null = null) => {
-    // Overload: can accept event or just string id
     const targetId = typeof e === 'string' ? e : id!;
     if (typeof e !== 'string') e.preventDefault();
 
@@ -168,10 +155,20 @@ export default function App() {
     });
   };
 
-  // Smooth scroll to top on route change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location.pathname]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-12 h-12 text-indigo-500 animate-spin" />
+          <span className="font-orbitron text-indigo-300 animate-pulse tracking-widest text-sm uppercase">Initializing Arcade</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -184,6 +181,7 @@ export default function App() {
               searchTerm={searchTerm} 
               favorites={favorites} 
               toggleFavorite={toggleFavorite} 
+              games={games}
             />
           } />
           <Route path="/favorites" element={
@@ -191,11 +189,13 @@ export default function App() {
               searchTerm={searchTerm} 
               favorites={favorites} 
               toggleFavorite={toggleFavorite}
+              games={games}
               onlyFavorites
             />
           } />
           <Route path="/play/:id" element={
-            <GamePlayerWrapper 
+            <GamePlayerRoute 
+              games={games}
               favorites={favorites} 
               toggleFavorite={(id) => toggleFavorite(id, id)} 
             />
@@ -205,48 +205,27 @@ export default function App() {
       </main>
 
       <footer className="bg-slate-900 border-t border-slate-800 py-12 px-4 mt-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col items-center md:items-start">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="bg-indigo-600 p-1.5 rounded-lg">
-                <Zap className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-orbitron text-lg font-bold">
-                NOVA<span className="text-indigo-500">ARCADE</span>
-              </span>
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="bg-indigo-600 p-1.5 rounded-lg">
+              <Zap className="w-5 h-5 text-white" />
             </div>
-            <p className="text-slate-500 text-sm max-w-xs text-center md:text-left">
-              The premium destination for unblocked browser entertainment. Powered by modern web technology.
-            </p>
+            <span className="font-orbitron text-lg font-bold">NOVAARCADE</span>
           </div>
-
-          <div className="flex gap-12 text-sm">
-            <div className="space-y-4">
-              <h4 className="font-bold text-slate-200">Navigation</h4>
-              <ul className="space-y-2 text-slate-500">
-                <li><a href="#" className="hover:text-indigo-400">Home</a></li>
-                <li><a href="#" className="hover:text-indigo-400">Featured</a></li>
-                <li><a href="#" className="hover:text-indigo-400">Popular</a></li>
-                <li><a href="#" className="hover:text-indigo-400">New Games</a></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-bold text-slate-200">Support</h4>
-              <ul className="space-y-2 text-slate-500">
-                <li><a href="#" className="hover:text-indigo-400">Report Issue</a></li>
-                <li><a href="#" className="hover:text-indigo-400">FAQ</a></li>
-                <li><a href="#" className="hover:text-indigo-400">About Us</a></li>
-                <li><a href="#" className="hover:text-indigo-400">Privacy Policy</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-800 text-center">
-          <p className="text-slate-600 text-xs italic">
-            &copy; {new Date().getFullYear()} NovaArcade. This is a demo platform for educational purposes.
-          </p>
+          <p className="text-slate-500 text-xs italic">&copy; {new Date().getFullYear()} NovaArcade. No AI features included.</p>
         </div>
       </footer>
     </div>
   );
 }
+
+const GamePlayerRoute: React.FC<{
+  games: Game[],
+  favorites: string[],
+  toggleFavorite: (id: string) => void
+}> = ({ games, favorites, toggleFavorite }) => {
+  const { id } = useParams<{ id: string }>();
+  const game = games.find(g => g.id === id);
+  if (!game) return <Navigate to="/" />;
+  return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
+};
