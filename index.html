@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaArcade | Unblocked Games</title>
+  <title>LiamRyboltBeans | Unblocked Games</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
       background: #0f172a;
     }
     #root:empty::after {
-      content: "BOOTING NOVA ENGINE...";
+      content: "BOOTING LIAM ENGINE...";
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
       letter-spacing: 0.3em;
@@ -80,7 +80,7 @@
               <Gamepad2 className="w-6 h-6 text-white" />
             </div>
             <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block">
-              NOVA<span className="text-indigo-500">ARCADE</span>
+              LIAMRYBOLT<span className="text-indigo-500">BEANS</span>
             </span>
           </Link>
           <div className="flex-1 max-w-xl relative">
@@ -193,11 +193,8 @@
           .then(res => res.json())
           .then(data => setGames(data))
           .catch(() => {
-            // Fallback data if JSON fails
-            setGames([
-              { id: '1', title: '2048', category: 'Puzzle', thumbnail: '', iframeUrl: 'https://play2048.co/', description: 'The original 2048' },
-              { id: '2', title: 'Hextris', category: 'Arcade', thumbnail: '', iframeUrl: 'https://hextris.io/', description: 'Hexagonal Tetris' }
-            ]);
+            // Fallback to empty if JSON fails or is missing
+            setGames([]);
           });
 
         const stored = localStorage.getItem('nova_favorites');
@@ -241,17 +238,29 @@
                       <button key={cat} onClick={() => setActiveCategory(cat)} className={`whitespace-nowrap px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activeCategory === cat ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-800 text-slate-400 hover:text-slate-100'}`}>{cat}</button>
                     ))}
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
-                  </div>
+                  {filteredGames.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
+                    </div>
+                  ) : (
+                    <div className="text-center py-24 bg-slate-800/20 rounded-3xl border border-dashed border-slate-700">
+                      <Ghost className="w-12 h-12 text-slate-500 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-slate-200">The arcade is empty</h3>
+                      <p className="text-slate-400 mt-2">No games found. Start adding some to games.json!</p>
+                    </div>
+                  )}
                 </div>
               } />
               <Route path="/favorites" element={
                 <div className="max-w-7xl mx-auto px-4 py-8">
                   <h2 className="text-2xl font-bold mb-8 flex items-center gap-3"><Heart className="w-6 h-6 text-red-500" />Favorites</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
-                  </div>
+                  {games.filter(g => favorites.includes(g.id)).length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12 text-slate-500 italic">No favorite games yet.</div>
+                  )}
                 </div>
               } />
               <Route path="/play/:id" element={<PlayWrapper games={games} favorites={favorites} toggleFavorite={toggleFavorite} />} />
@@ -259,7 +268,6 @@
             </Routes>
           </main>
           <footer className="bg-slate-900 border-t border-slate-800 py-8 text-center mt-auto">
-            <p className="text-slate-500 text-[10px] uppercase tracking-widest font-bold">NovaArcade &bull; Unblocked Gaming Portal</p>
           </footer>
         </div>
       );
