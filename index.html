@@ -68,7 +68,7 @@
     import React, { useState, useEffect, useMemo, useRef } from 'react';
     import ReactDOM from 'react-dom/client';
     import { HashRouter, Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
-    import { Gamepad2, Search, Heart, Star, Maximize2, RotateCcw, ArrowLeft, Shield, Zap, Trophy, Ghost } from 'lucide-react';
+    import { Gamepad2, Search, Heart, Star, Maximize2, RotateCcw, ArrowLeft, Ghost } from 'lucide-react';
 
     // --- COMPONENTS ---
 
@@ -115,9 +115,6 @@
               onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1550741111-3d5d71402031?q=80&w=400'; }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-            <div className="absolute bottom-3 left-3 flex items-center gap-2">
-              <span className="bg-indigo-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{game.category}</span>
-            </div>
           </div>
           <div className="p-4">
             <h3 className="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors truncate">{game.title}</h3>
@@ -144,10 +141,6 @@
               <ArrowLeft className="w-4 h-4" />
               <span className="text-sm font-medium">Exit Game</span>
             </Link>
-            <button onClick={() => toggleFavorite(game.id)} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-all ${isFavorite ? 'bg-red-500/10 text-red-500' : 'bg-slate-800 text-slate-300'}`}>
-              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
-              {isFavorite ? 'Saved' : 'Save'}
-            </button>
           </div>
           <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
             <div className="relative aspect-video w-full bg-slate-950">
@@ -165,16 +158,6 @@
                 allow="fullscreen; autoplay; encrypted-media"
               />
             </div>
-            <div className="bg-slate-800/80 p-4 flex items-center justify-between">
-              <div>
-                <h2 className="font-bold text-slate-100">{game.title}</h2>
-                <p className="text-xs text-slate-400">Lag-Free Experience</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <button onClick={() => { setIsLoading(true); iframeRef.current.src = iframeRef.current.src; }} className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg"><RotateCcw className="w-5 h-5" /></button>
-                <button onClick={() => iframeRef.current.requestFullscreen()} className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg"><Maximize2 className="w-5 h-5" /></button>
-              </div>
-            </div>
           </div>
         </div>
       );
@@ -188,11 +171,17 @@
       const [games, setGames] = useState([]);
 
       useEffect(() => {
-        // Fetch strictly from games.json
-        fetch('./games.json')
+        // Cache busting using a timestamp prevents the browser from loading old game data
+        fetch(`./games.json?t=${Date.now()}`)
           .then(res => res.json())
-          .then(data => setGames(Array.isArray(data) ? data : []))
-          .catch(() => setGames([]));
+          .then(data => {
+            console.log("Loaded library data:", data);
+            setGames(Array.isArray(data) ? data : []);
+          })
+          .catch(() => {
+            console.log("No library data found.");
+            setGames([]);
+          });
 
         const stored = localStorage.getItem('nova_favorites');
         if (stored) setFavorites(JSON.parse(stored));
@@ -224,10 +213,10 @@
                       {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
                     </div>
                   ) : (
-                    <div className="text-center py-32 bg-slate-900/40 rounded-3xl border border-dashed border-slate-800">
-                      <Ghost className="w-16 h-16 text-slate-600 mx-auto mb-6" />
-                      <h3 className="text-2xl font-bold text-slate-300">The collection is currently empty</h3>
-                      <p className="text-slate-500 mt-2 max-w-sm mx-auto">No unblocked games are registered in the library. Populate games.json to begin.</p>
+                    <div className="text-center py-32 bg-slate-900/20 rounded-3xl border border-dashed border-slate-800">
+                      <Ghost className="w-16 h-16 text-slate-700 mx-auto mb-6" />
+                      <h3 className="text-2xl font-bold text-slate-400 uppercase tracking-widest font-orbitron">Vault Empty</h3>
+                      <p className="text-slate-600 mt-2 max-w-sm mx-auto">Update games.json to populate the LiamRyboltBeans arcade.</p>
                     </div>
                   )}
                 </div>
@@ -240,7 +229,7 @@
                       {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
                     </div>
                   ) : (
-                    <div className="text-center py-12 text-slate-500 italic">You haven't saved any games yet.</div>
+                    <div className="text-center py-12 text-slate-500 italic">No saved items found.</div>
                   )}
                 </div>
               } />
@@ -248,7 +237,7 @@
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </main>
-          <footer className="border-t border-slate-900 py-12">
+          <footer className="py-8">
           </footer>
         </div>
       );
@@ -257,7 +246,7 @@
     const PlayWrapper = ({ games, favorites, toggleFavorite }) => {
       const { id } = useParams();
       const game = games.find(g => g.id === id);
-      if (!game) return <div className="p-12 text-center text-slate-500">Asset Error: Game not found in library</div>;
+      if (!game) return <div className="p-12 text-center text-slate-500 font-orbitron">ASSET_NOT_FOUND</div>;
       return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
     };
 
