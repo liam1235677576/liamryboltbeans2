@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NovaArcade | Unblocked Games</title>
   
-  <!-- Styling & Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   
@@ -32,7 +31,7 @@
       background: #0f172a;
     }
     #root:empty::after {
-      content: "BOOTING ARCADE ENGINE...";
+      content: "BOOTING NOVA ENGINE...";
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
       letter-spacing: 0.3em;
@@ -43,75 +42,238 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.98); }
     }
-    #error-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #0f172a;
-      z-index: 9999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
-    }
-    #error-message {
-      max-width: 600px;
-      background: #1e293b;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      border: 1px solid #ef444455;
-      color: #cbd5e1;
-      font-family: monospace;
-      white-space: pre-wrap;
-      text-align: left;
-      margin-top: 1rem;
-    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 
-  <!-- Polyfills for older browsers -->
-  <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
-
-  <!-- Babel for JSX Support -->
+  <!-- Babel Standalone -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@19.0.0",
-    "react-dom": "https://esm.sh/react-dom@19.0.0",
-    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "react-router-dom": "https://esm.sh/react-router-dom@7.1.3?deps=react@19.0.0,react-dom@19.0.0",
-    "lucide-react": "https://esm.sh/lucide-react@0.474.0?deps=react@19.0.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  {
+    "imports": {
+      "react": "https://esm.sh/react@19.0.0",
+      "react-dom": "https://esm.sh/react-dom@19.0.0",
+      "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+      "react-router-dom": "https://esm.sh/react-router-dom@7.1.3?deps=react@19.0.0,react-dom@19.0.0",
+      "lucide-react": "https://esm.sh/lucide-react@0.474.0?deps=react@19.0.0"
+    }
   }
-}
-</script>
+  </script>
 </head>
 <body>
   <div id="root"></div>
 
-  <div id="error-overlay">
-    <h2 class="font-orbitron text-2xl text-red-500 mb-2">SYSTEM ERROR</h2>
-    <div id="error-message"></div>
-    <button onclick="location.reload()" class="mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-lg">RESTART</button>
-  </div>
-
-  <!-- Entry Point using standard .js extension to avoid MIME type errors -->
   <script type="text/babel" data-presets="react" data-type="module">
-    import './index.js';
-  </script>
+    import React, { useState, useEffect, useMemo, useRef } from 'react';
+    import ReactDOM from 'react-dom/client';
+    import { HashRouter, Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
+    import { Gamepad2, Search, Heart, Star, Maximize2, RotateCcw, ArrowLeft, Shield, Zap, Trophy, Ghost } from 'lucide-react';
 
-  <script>
-    window.onerror = function(message, source, lineno, colno, error) {
-      console.error(message);
-      const overlay = document.getElementById('error-overlay');
-      const msgBox = document.getElementById('error-message');
-      if (overlay && msgBox) {
-        overlay.style.display = 'flex';
-        msgBox.textContent = `Error: ${message}\nLine: ${lineno}`;
-      }
+    // --- COMPONENTS ---
+
+    const Header = ({ onSearch, favoritesCount }) => (
+      <header className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800 px-4 py-3">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="bg-indigo-600 p-2 rounded-lg group-hover:bg-indigo-500 transition-colors shadow-lg shadow-indigo-500/20">
+              <Gamepad2 className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block">
+              NOVA<span className="text-indigo-500">ARCADE</span>
+            </span>
+          </Link>
+          <div className="flex-1 max-w-xl relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search games..."
+              onChange={(e) => onSearch(e.target.value)}
+              className="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all text-slate-100"
+            />
+          </div>
+          <Link to="/favorites" className="p-2 hover:bg-slate-800 rounded-lg relative">
+            <Heart className="w-5 h-5 text-slate-300" />
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {favoritesCount}
+              </span>
+            )}
+          </Link>
+        </div>
+      </header>
+    );
+
+    const GameCard = ({ game, isFavorite, toggleFavorite }) => (
+      <div className="group relative bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700/50 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-2xl">
+        <Link to={`/play/${game.id}`} className="block">
+          <div className="aspect-video relative overflow-hidden bg-slate-900">
+            <img 
+              src={game.thumbnail} 
+              alt={game.title} 
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1550741111-3d5d71402031?q=80&w=400'; }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-3 flex items-center gap-2">
+              <span className="bg-indigo-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{game.category}</span>
+            </div>
+          </div>
+          <div className="p-4">
+            <h3 className="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors truncate">{game.title}</h3>
+            <p className="text-xs text-slate-400 line-clamp-1 mt-1">{game.description}</p>
+          </div>
+        </Link>
+        <button
+          onClick={(e) => { e.preventDefault(); toggleFavorite(game.id); }}
+          className={`absolute top-3 right-3 p-2 rounded-xl backdrop-blur-md transition-all ${isFavorite ? 'bg-red-500 text-white shadow-lg shadow-red-500/30' : 'bg-slate-900/50 text-slate-300 hover:bg-slate-900/80'}`}
+        >
+          <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+        </button>
+      </div>
+    );
+
+    const GamePlayer = ({ game, isFavorite, toggleFavorite }) => {
+      const [isLoading, setIsLoading] = useState(true);
+      const iframeRef = useRef(null);
+
+      return (
+        <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
+          <div className="mb-6 flex items-center justify-between">
+            <Link to="/" className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group">
+              <ArrowLeft className="w-4 h-4" />
+              <span className="text-sm font-medium">Exit Game</span>
+            </Link>
+            <button onClick={() => toggleFavorite(game.id)} className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm transition-all ${isFavorite ? 'bg-red-500/10 text-red-500' : 'bg-slate-800 text-slate-300'}`}>
+              <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+              {isFavorite ? 'Saved' : 'Save'}
+            </button>
+          </div>
+          <div className="bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden shadow-2xl">
+            <div className="relative aspect-video w-full bg-slate-950">
+              {isLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 z-10">
+                  <div className="w-10 h-10 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin mb-4" />
+                  <p className="text-slate-400 font-medium text-sm">Initializing {game.title}...</p>
+                </div>
+              )}
+              <iframe
+                ref={iframeRef}
+                src={game.iframeUrl}
+                className="w-full h-full border-none"
+                onLoad={() => setIsLoading(false)}
+                allow="fullscreen; autoplay; encrypted-media"
+              />
+            </div>
+            <div className="bg-slate-800/80 p-4 flex items-center justify-between">
+              <div>
+                <h2 className="font-bold text-slate-100">{game.title}</h2>
+                <p className="text-xs text-slate-400">Lag-Free & Unblocked Experience</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button onClick={() => { setIsLoading(true); iframeRef.current.src = iframeRef.current.src; }} className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg"><RotateCcw className="w-5 h-5" /></button>
+                <button onClick={() => iframeRef.current.requestFullscreen()} className="p-2 text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg"><Maximize2 className="w-5 h-5" /></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     };
+
+    // --- APP ---
+
+    const App = () => {
+      const [searchTerm, setSearchTerm] = useState('');
+      const [favorites, setFavorites] = useState([]);
+      const [games, setGames] = useState([]);
+      const [activeCategory, setActiveCategory] = useState('All');
+
+      useEffect(() => {
+        fetch('./games.json')
+          .then(res => res.json())
+          .then(data => setGames(data))
+          .catch(() => {
+            // Fallback data if JSON fails
+            setGames([
+              { id: '1', title: '2048', category: 'Puzzle', thumbnail: '', iframeUrl: 'https://play2048.co/', description: 'The original 2048' },
+              { id: '2', title: 'Hextris', category: 'Arcade', thumbnail: '', iframeUrl: 'https://hextris.io/', description: 'Hexagonal Tetris' }
+            ]);
+          });
+
+        const stored = localStorage.getItem('nova_favorites');
+        if (stored) setFavorites(JSON.parse(stored));
+      }, []);
+
+      const toggleFavorite = (id) => {
+        setFavorites(prev => {
+          const next = prev.includes(id) ? prev.filter(fid => fid !== id) : [...prev, id];
+          localStorage.setItem('nova_favorites', JSON.stringify(next));
+          return next;
+        });
+      };
+
+      const filteredGames = useMemo(() => {
+        return games.filter(game => {
+          const matchesSearch = game.title.toLowerCase().includes(searchTerm.toLowerCase());
+          const matchesCategory = activeCategory === 'All' || game.category === activeCategory;
+          return matchesSearch && matchesCategory;
+        });
+      }, [searchTerm, activeCategory, games]);
+
+      return (
+        <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+          <Header onSearch={setSearchTerm} favoritesCount={favorites.length} />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                  {!searchTerm && activeCategory === 'All' && (
+                    <section className="mb-12 relative overflow-hidden rounded-[2rem] bg-indigo-600 p-8 sm:p-12 shadow-2xl">
+                      <div className="relative z-10 max-w-2xl">
+                        <h1 className="font-orbitron text-4xl sm:text-6xl font-black text-white mb-6">Unblocked.<br /><span className="text-indigo-950">Lag-Free.</span></h1>
+                        <p className="text-indigo-100 text-lg mb-8">The ultimate destination for browser games that actually work.</p>
+                      </div>
+                      <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-white/10 to-transparent -skew-x-12 translate-x-1/4" />
+                    </section>
+                  )}
+                  <div className="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar mb-8">
+                    {['All', 'Action', 'Puzzle', 'Sports', 'Arcade', 'Retro'].map(cat => (
+                      <button key={cat} onClick={() => setActiveCategory(cat)} className={`whitespace-nowrap px-4 py-2 rounded-xl text-sm font-semibold transition-all ${activeCategory === cat ? 'bg-indigo-600 text-white shadow-lg' : 'bg-slate-800 text-slate-400 hover:text-slate-100'}`}>{cat}</button>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {filteredGames.map(game => <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />)}
+                  </div>
+                </div>
+              } />
+              <Route path="/favorites" element={
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                  <h2 className="text-2xl font-bold mb-8 flex items-center gap-3"><Heart className="w-6 h-6 text-red-500" />Favorites</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
+                  </div>
+                </div>
+              } />
+              <Route path="/play/:id" element={<PlayWrapper games={games} favorites={favorites} toggleFavorite={toggleFavorite} />} />
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </main>
+          <footer className="bg-slate-900 border-t border-slate-800 py-8 text-center mt-auto">
+            <p className="text-slate-500 text-[10px] uppercase tracking-widest font-bold">NovaArcade &bull; Unblocked Gaming Portal</p>
+          </footer>
+        </div>
+      );
+    };
+
+    const PlayWrapper = ({ games, favorites, toggleFavorite }) => {
+      const { id } = useParams();
+      const game = games.find(g => g.id === id);
+      if (!game) return <div className="p-12 text-center text-slate-500">Kernel Error: Game Asset Not Found</div>;
+      return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<HashRouter><App /></HashRouter>);
   </script>
 </body>
 </html>
