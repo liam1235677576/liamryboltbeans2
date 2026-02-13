@@ -40,7 +40,7 @@
       background: #0f172a;
     }
     #root:empty::after {
-      content: "CONNECTING TO ARCADE...";
+      content: "BOOTING ARCADE ENGINE...";
       font-family: 'Orbitron', sans-serif;
       font-size: 14px;
       letter-spacing: 0.3em;
@@ -51,9 +51,37 @@
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.5; transform: scale(0.98); }
     }
+    #error-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0f172a;
+      color: #ef4444;
+      padding: 2rem;
+      z-index: 9999;
+      font-family: monospace;
+      white-space: pre-wrap;
+      text-align: center;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    #error-overlay h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+    #error-message {
+      max-width: 600px;
+      background: #1e293b;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      border: 1px solid #ef444455;
+      color: #cbd5e1;
+      text-align: left;
+    }
   </style>
   
-  <!-- ES Module Shims: Required for Safari and older browser support for import maps -->
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
 
   <script type="importmap">
@@ -72,6 +100,38 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="module" src="./index.tsx"></script>
+  <div id="error-overlay" style="display: none;">
+    <h2>BOOT SEQUENCE FAILED</h2>
+    <div id="error-message"></div>
+    <button onclick="location.reload()" style="background: #4f46e5; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; margin-top: 2rem; font-weight: bold;">RETRY BOOT</button>
+  </div>
+
+  <script>
+    // Fail-safe to detect if React hasn't mounted within 8 seconds
+    window.onload = () => {
+      setTimeout(() => {
+        const root = document.getElementById('root');
+        if (root && root.innerHTML === '') {
+          const overlay = document.getElementById('error-overlay');
+          const msg = document.getElementById('error-message');
+          overlay.style.display = 'flex';
+          msg.textContent = "The Arcade Engine failed to start.\n\nLikely causes:\n1. GitHub Pages is not serving .tsx files (GitHub Pages requires a build process like Vite/GitHub Actions for TSX files).\n2. Browser is incompatible with modern ES Modules.\n3. Dependency resolution error.\n\nPlease check the browser console (F12) for specific technical errors.";
+        }
+      }, 8000);
+    };
+
+    window.onerror = (message, source, lineno, colno, error) => {
+      console.error("Arcade Global Error:", message);
+      const overlay = document.getElementById('error-overlay');
+      const msg = document.getElementById('error-message');
+      if (overlay && msg) {
+        overlay.style.display = 'flex';
+        msg.textContent = `CRITICAL ERROR: ${message}\nSource: ${source}:${lineno}:${colno}`;
+      }
+      return false;
+    };
+  </script>
+
+  <script type="module" src="index.tsx"></script>
 </body>
 </html>

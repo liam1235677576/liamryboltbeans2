@@ -4,16 +4,17 @@ import ReactDOM from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
 
-console.log("Arcade Engine: Starting...");
+console.log("Arcade Engine: Initializing Kernel...");
 
-const initApp = () => {
+function mount() {
+  const rootElement = document.getElementById('root');
+  
+  if (!rootElement) {
+    console.error("Arcade Engine: Fatal - Root element not found.");
+    return;
+  }
+
   try {
-    const rootElement = document.getElementById('root');
-    if (!rootElement) {
-      console.error("Arcade Engine: Error - #root element not found.");
-      return;
-    }
-
     const root = ReactDOM.createRoot(rootElement);
     root.render(
       <React.StrictMode>
@@ -22,15 +23,21 @@ const initApp = () => {
         </HashRouter>
       </React.StrictMode>
     );
-    console.log("Arcade Engine: UI Mounted successfully.");
-  } catch (err) {
-    console.error("Arcade Engine: Initialization failed", err);
+    console.log("Arcade Engine: UI System Ready.");
+  } catch (error: any) {
+    console.error("Arcade Engine: Initialization Failed", error);
+    const overlay = document.getElementById('error-overlay');
+    const msg = document.getElementById('error-message');
+    if (overlay && msg) {
+      overlay.style.display = 'flex';
+      msg.textContent = "KERNEL ERROR: " + (error?.message || "Unknown error during mount. See console for details.");
+    }
   }
-};
+}
 
-// Handle mounting for both immediate and deferred loading scenarios
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-  initApp();
+// Ensure the DOM is fully loaded before mounting
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', mount);
 } else {
-  document.addEventListener('DOMContentLoaded', initApp);
+  mount();
 }
