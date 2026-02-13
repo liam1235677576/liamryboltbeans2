@@ -6,11 +6,11 @@ import App from './App';
 
 console.log("Arcade Engine: Initializing Kernel...");
 
-function mount() {
+const mount = () => {
   const rootElement = document.getElementById('root');
   
   if (!rootElement) {
-    console.error("Arcade Engine: Fatal - Root element not found.");
+    console.error("Arcade Engine: Root element not found.");
     return;
   }
 
@@ -25,19 +25,19 @@ function mount() {
     );
     console.log("Arcade Engine: UI System Ready.");
   } catch (error: any) {
-    console.error("Arcade Engine: Initialization Failed", error);
+    console.error("Arcade Engine: Mount error", error);
     const overlay = document.getElementById('error-overlay');
     const msg = document.getElementById('error-message');
     if (overlay && msg) {
       overlay.style.display = 'flex';
-      msg.textContent = "KERNEL ERROR: " + (error?.message || "Unknown error during mount. See console for details.");
+      msg.textContent = "MOUNT ERROR: " + (error?.message || "Check console for stack trace.");
     }
   }
-}
+};
 
-// Ensure the DOM is fully loaded before mounting
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', mount);
-} else {
+// Handle both standard and deferred loading
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
   mount();
+} else {
+  document.addEventListener('DOMContentLoaded', mount);
 }

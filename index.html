@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NovaArcade | Unblocked Games</title>
+  
+  <!-- Styling & Fonts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -19,19 +22,11 @@
       font-family: 'Orbitron', sans-serif;
     }
     /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #1e293b;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
     #root:empty {
       display: flex;
       align-items: center;
@@ -56,33 +51,32 @@
       position: fixed;
       inset: 0;
       background: #0f172a;
-      color: #ef4444;
-      padding: 2rem;
       z-index: 9999;
-      font-family: monospace;
-      white-space: pre-wrap;
-      text-align: center;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-    #error-overlay h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      font-family: 'Orbitron', sans-serif;
+      padding: 2rem;
+      text-align: center;
     }
     #error-message {
       max-width: 600px;
       background: #1e293b;
       padding: 1.5rem;
-      border-radius: 0.75rem;
+      border-radius: 1rem;
       border: 1px solid #ef444455;
       color: #cbd5e1;
+      font-family: monospace;
+      white-space: pre-wrap;
       text-align: left;
+      margin-top: 1rem;
     }
   </style>
-  
+
+  <!-- ES Module Shims for Import Map support in older browsers -->
   <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+
+  <!-- Babel Standalone for on-the-fly TSX transpilation (Fixes GitHub Pages MIME type issues) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="importmap">
 {
@@ -100,38 +94,43 @@
 </head>
 <body>
   <div id="root"></div>
-  <div id="error-overlay" style="display: none;">
-    <h2>BOOT SEQUENCE FAILED</h2>
+
+  <div id="error-overlay">
+    <h2 class="font-orbitron text-2xl text-red-500 mb-2">CRITICAL BOOT FAILURE</h2>
+    <p class="text-slate-400 text-sm mb-4">The arcade engine failed to initialize.</p>
     <div id="error-message"></div>
-    <button onclick="location.reload()" style="background: #4f46e5; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; margin-top: 2rem; font-weight: bold;">RETRY BOOT</button>
+    <button onclick="location.reload()" class="mt-6 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-6 rounded-lg transition-colors">RETRY INITIALIZATION</button>
   </div>
 
-  <script>
-    // Fail-safe to detect if React hasn't mounted within 8 seconds
-    window.onload = () => {
-      setTimeout(() => {
-        const root = document.getElementById('root');
-        if (root && root.innerHTML === '') {
-          const overlay = document.getElementById('error-overlay');
-          const msg = document.getElementById('error-message');
-          overlay.style.display = 'flex';
-          msg.textContent = "The Arcade Engine failed to start.\n\nLikely causes:\n1. GitHub Pages is not serving .tsx files (GitHub Pages requires a build process like Vite/GitHub Actions for TSX files).\n2. Browser is incompatible with modern ES Modules.\n3. Dependency resolution error.\n\nPlease check the browser console (F12) for specific technical errors.";
-        }
-      }, 8000);
-    };
+  <!-- Main Entry Point: Loaded via Babel to handle TypeScript/JSX -->
+  <script type="text/babel" data-presets="react,typescript" data-type="module">
+    import './index.tsx';
+  </script>
 
-    window.onerror = (message, source, lineno, colno, error) => {
-      console.error("Arcade Global Error:", message);
+  <script>
+    // Global error handler to catch boot issues
+    window.onerror = function(message, source, lineno, colno, error) {
       const overlay = document.getElementById('error-overlay');
-      const msg = document.getElementById('error-message');
-      if (overlay && msg) {
+      const msgBox = document.getElementById('error-message');
+      if (overlay && msgBox) {
         overlay.style.display = 'flex';
-        msg.textContent = `CRITICAL ERROR: ${message}\nSource: ${source}:${lineno}:${colno}`;
+        msgBox.textContent = `Error: ${message}\nLocation: ${source}:${lineno}:${colno}`;
       }
       return false;
     };
-  </script>
 
-  <script type="module" src="index.tsx"></script>
+    // Watchdog to ensure something actually mounts
+    setTimeout(() => {
+      const root = document.getElementById('root');
+      if (root && root.innerHTML === '') {
+        const overlay = document.getElementById('error-overlay');
+        const msgBox = document.getElementById('error-message');
+        if (overlay && msgBox) {
+          overlay.style.display = 'flex';
+          msgBox.textContent = "TIMEOUT: The application took too long to start.\n\nTips:\n1. Check your internet connection for CDN availability.\n2. Open Browser Console (F12) to see detailed errors.\n3. Ensure all files are in the same directory.";
+        }
+      }
+    }, 10000);
+  </script>
 </body>
 </html>
