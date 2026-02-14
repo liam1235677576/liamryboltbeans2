@@ -287,27 +287,6 @@
     "category": "Action"
   },
   {
-    "id": "cluster-rush",
-    "title": "Cluster Rush",
-    "description": "Jump from truck to truck in this high-speed, heart-pounding arcade runner.",
-    "iframeUrl": "https://ubg66.gitlab.io/cluster-rush/",
-    "category": "Action"
-  },
-  {
-    "id": "friday-night-funkin",
-    "title": "Friday Night Funkin'",
-    "description": "A rhythm game where you battle opponents in musical duels to win over your girlfriend.",
-    "iframeUrl": "https://ubg66.gitlab.io/fnf-classic/",
-    "category": "Music"
-  },
-  {
-    "id": "geometry-dash",
-    "title": "Geometry Dash",
-    "description": "Jump and fly your way through danger in this rhythm-based action platformer.",
-    "iframeUrl": "https://ubg66.gitlab.io/geometry-dash/",
-    "category": "Arcade"
-  },
-  {
     "id": "getaway-shootout",
     "title": "Getaway Shootout",
     "description": "Race to the getaway vehicle in this wacky, physics-based shooter.",
@@ -334,5 +313,152 @@
     "description": "Stay on the tube as long as possible while being tossed around by massive waves and sharks.",
     "iframeUrl": "https://ubg66.gitlab.io/tube-jumpers/",
     "category": "Action"
+  },
+  {
+    "id": "2048",
+    "title": "2048",
+    "description": "Join the numbers and get to the 2048 tile! A classic addictive puzzle game.",
+    "iframeUrl": "https://ubg66.gitlab.io/2048/",
+    "category": "Puzzle"
+  },
+  {
+    "id": "shell-shockers",
+    "title": "Shell Shockers",
+    "description": "The world's most advanced egg-based multiplayer shooter. Crack some shells!",
+    "iframeUrl": "https://ubg66.gitlab.io/shell-shockers/",
+    "category": "Action"
+  },
+  {
+    "id": "tomb-runner",
+    "title": "Tomb Runner",
+    "description": "Run, jump, and slide as you explore an ancient tomb in this high-speed runner.",
+    "iframeUrl": "https://ubg66.gitlab.io/tomb-runner/",
+    "category": "Action"
+  },
+  {
+    "id": "happy-wheels",
+    "title": "Happy Wheels",
+    "description": "The legendary physics-based ragdoll obstacle course. Prepare for chaos!",
+    "iframeUrl": "https://ubg66.gitlab.io/happy-wheels/",
+    "category": "Action"
+  },
+  {
+    "id": "monkey-mart",
+    "title": "Monkey Mart",
+    "description": "Manage your own supermarket in this addictive idle simulation game.",
+    "iframeUrl": "https://ubg66.gitlab.io/monkey-mart/",
+    "category": "Simulation"
+  },
+  {
+    "id": "baldis-basics",
+    "title": "Baldi's Basics",
+    "description": "A surreal horror-arcade experience disguised as an educational game. Collect the notebooks!",
+    "iframeUrl": "https://ubg66.gitlab.io/baldis-basics/",
+    "category": "Arcade"
+  },
+  {
+    "id": "bottle-flip-3d",
+    "title": "Bottle Flip 3D",
+    "description": "Master the art of the bottle flip across various household furniture obstacles.",
+    "iframeUrl": "https://ubg66.gitlab.io/bottle-flip-3d/",
+    "category": "Arcade"
+  },
+  {
+    "id": "elastic-man",
+    "title": "Elastic Man",
+    "description": "A strangely satisfying arcade toy with advanced face physics. Stretch away!",
+    "iframeUrl": "https://ubg66.gitlab.io/elastic-man/",
+    "category": "Arcade"
+  },
+  {
+    "id": "iron-snout",
+    "title": "Iron Snout",
+    "description": "A fast-paced fighting game where a brave pig takes on endless waves of wolves.",
+    "iframeUrl": "https://ubg66.gitlab.io/iron-snout/",
+    "category": "Action"
+  },
+  {
+    "id": "big-tower-tiny-square",
+    "title": "Big Tower Tiny Square",
+    "description": "A giant tower. A tiny square. One big jump. Can you make it to the top?",
+    "iframeUrl": "https://ubg66.gitlab.io/big-tower-tiny-square/",
+    "category": "Action"
+  },
+  {
+    "id": "blumgi-rocket",
+    "title": "Blumgi Rocket",
+    "description": "A fast-paced platformer where you drive a rocket-powered car through challenging levels.",
+    "iframeUrl": "https://ubg66.gitlab.io/blumgi-rocket/",
+    "category": "Racing"
+  },
+  {
+    "id": "rooftop-snipers",
+    "title": "Rooftop Snipers",
+    "description": "A hilarious two-player physics-based shooter. Knock your opponent off the roof!",
+    "iframeUrl": "https://ubg66.gitlab.io/rooftop-snipers/",
+    "category": "Action"
+  },
+  {
+    "id": "penalty-shooters-2",
+    "title": "Penalty Shooters 2",
+    "description": "Score goals and win the tournament in this high-stakes soccer penalty challenge.",
+    "iframeUrl": "https://ubg66.gitlab.io/penalty-shooters-2/",
+    "category": "Sports"
+  },
+  {
+    "id": "raft-wars",
+    "title": "Raft Wars",
+    "description": "Defend your treasure from pirates in this fun turn-based physics shooter.",
+    "iframeUrl": "https://ubg66.gitlab.io/raft-wars/",
+    "category": "Action"
+  },
+  {
+    "id": "fireboy-watergirl",
+    "title": "Fireboy and Watergirl",
+    "description": "Work together to solve elemental puzzles in the Forest Temple. Switch between characters to progress.",
+    "iframeUrl": "https://ubg66.gitlab.io/fireboy-and-watergirl-forest-temple/",
+    "category": "Puzzle"
+  },
+  {
+    "id": "drift-hunters",
+    "title": "Drift Hunters",
+    "description": "The ultimate 3D drifting simulator. Customize your car and master the art of the drift.",
+    "iframeUrl": "https://ubg66.gitlab.io/drift-hunters/",
+    "category": "Racing"
+  },
+  {
+    "id": "minecraft-classic",
+    "title": "Minecraft Classic",
+    "description": "The original browser version of Minecraft. Build anything you can imagine in creative mode.",
+    "iframeUrl": "https://ubg66.gitlab.io/minecraft-classic/",
+    "category": "Arcade"
+  },
+  {
+    "id": "worlds-hardest-game",
+    "title": "World's Hardest Game",
+    "description": "Navigate through increasingly complex levels. It's harder than it looks!",
+    "iframeUrl": "https://ubg66.gitlab.io/worlds-hardest-game/",
+    "category": "Puzzle"
+  },
+  {
+    "id": "slope-2",
+    "title": "Slope 2",
+    "description": "The high-speed sequel with even more challenging levels and smoother graphics.",
+    "iframeUrl": "https://ubg66.gitlab.io/slope-2/",
+    "category": "Action"
+  },
+  {
+    "id": "madalin-stunt-cars-2",
+    "title": "Madalin Stunt Cars 2",
+    "description": "A massive open-world driving game with incredible stunts and multiplayer support.",
+    "iframeUrl": "https://ubg66.gitlab.io/madalin-stunt-cars-2/",
+    "category": "Racing"
+  },
+  {
+    "id": "duck-life-4",
+    "title": "Duck Life 4",
+    "description": "Train your duck to be the ultimate athlete and win the world championship!",
+    "iframeUrl": "https://ubg66.gitlab.io/duck-life-4/",
+    "category": "Arcade"
   }
 ]
