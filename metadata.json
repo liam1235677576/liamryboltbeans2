@@ -1,6 +1,6 @@
 {
   "name": "LiamRyboltBeans",
-  "description": "A sleek, high-performance unblocked games portal featuring a curated collection of browser-based games with smooth iframe integration and responsive design.",
+  "description": "A personal resource and module documentation hub for web-based applications and performance testing.",
   "requestFramePermissions": [
     "camera",
     "microphone",
