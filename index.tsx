@@ -1,1 +1,1 @@
-// Logic moved to index.html for maximum compatibility.
+// Logic restored to index.html for maximum compatibility and single-file operation as requested by the undo command.

@@ -117,5 +117,26 @@
     "description": "The classic bird-slinging puzzle game. Use unique powers of the Angry Birds to destroy the greedy pigs' defenses!",
     "iframeUrl": "https://script.google.com/macros/s/AKfycby30nrhMSPeJyfgpPQfLsVVhOxjjyErkIsQtoYAzPkRYenYcSBpVyMcOwXy_flMCjFm/exec",
     "category": "Puzzle"
+  },
+  {
+    "id": "burrito-bison",
+    "title": "Burrito Bison",
+    "description": "Launch Burrito Bison through the air, squashing gummies and taking down the gummy boss in this high-velocity action game!",
+    "iframeUrl": "https://ubg66.gitlab.io/burrito-bison/",
+    "category": "Action"
+  },
+  {
+    "id": "jetpack-joyride",
+    "title": "Jetpack Joyride",
+    "description": "Fly high with a machine gun jetpack! Dodge obstacles and collect coins in this endless runner classic.",
+    "iframeUrl": "https://ubg66.gitlab.io/jetpack-joyride-browser/",
+    "category": "Action"
+  },
+  {
+    "id": "eggy-car",
+    "title": "Eggy Car",
+    "description": "Drive a car with an egg! Master the physics and keep the egg safe on your journey.",
+    "iframeUrl": "https://ubg66.gitlab.io/eggy-car/",
+    "category": "Racing"
   }
 ]
