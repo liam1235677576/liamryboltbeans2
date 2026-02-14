@@ -2,9 +2,289 @@
   {
     "id": "moto-x3m",
     "title": "Moto X3M",
-    "description": "Perform insane flips and dodge deadly obstacles in the ultimate bike racing game.",
+    "description": "Perform insane flips and dodge deadly obstacles in the ultimate bike racing game. Reach the finish line in record time!",
     "iframeUrl": "https://script.google.com/macros/s/AKfycbw7_zG02ZMXnPSdwCx0CcmN8eX_0Bk3715TSP-Eglb1DyVhp7RxShuXq4qJ8Q2s7cnW/exec",
     "category": "Racing"
+  },
+  {
+    "id": "moto-x3m-2",
+    "title": "Moto X3M 2",
+    "description": "The high-octane sequel with more levels, faster bikes, and even deadlier traps. Master the physics and beat the clock!",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbxFMlvpCwA1vZ0hGwNZ32IZnq9uUoCVS3lJxBpIdjqU9Nf2Pp89i-Fmx0YaryI3fIc/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "moto-x3m-3",
+    "title": "Moto X3M 3",
+    "description": "The third installment of the legendary Moto X3M series. Even crazier tracks and obstacles await.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbw3x1GjtXTLFlreYVz4puHyTJRaf0-BRwYQcVBpFf3UeocoMwo_ZnUG6s-kgHLe4CqvSw/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "moto-x3m-pool-party",
+    "title": "Moto X3M Pool Party",
+    "description": "Grab your bike and get ready for a splash in Moto X3M Pool Party. Navigate through challenging beach-themed tracks with sunshine and water.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbxUirOvda1cK6lygKXhf6KU-fXxCw2oBnggnBCSH7A3tU8cyIgjoLGJNWUs3HtDootq/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "moto-x3m-spooky-land",
+    "title": "Moto X3M Spooky Land",
+    "description": "Ride through a haunting landscape of skeletons, pumpkins, and spooky traps in this holiday-themed Moto X3M installment.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwp7WY2ODIiIU2vnD-7F5jq5EVjL6L_s_Hrp9fIbzJiofUYFBtRREKgGo-lW7DRLWVZfw/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "moto-x3m-winter",
+    "title": "Moto X3M Winter",
+    "description": "Navigate through icy tracks and snowy obstacles in this winter-themed Moto X3M adventure.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwe0AePQawdLVOUfq5mDmm1EFX4xDeNzs9wDLexIwzvtHhLvbbq1G8fwxJjVnAotrFo/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "car-crash-test",
+    "title": "Car Crash Test",
+    "description": "Push vehicle safety to the limit in this realistic physics-based crash simulator. Observe damage in high detail.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwnHhMofGNjZt4xEn7HZJTUBs2klhlPV7mk4-_LGHESeYIFmtQiGn0gr3VT52AZna0U/exec",
+    "category": "Simulation"
+  },
+  {
+    "id": "hollow-knight",
+    "title": "Hollow Knight",
+    "description": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes.",
+    "iframeUrl": "https://db.art.fullsusmtb.org/html/hollow_knight/index.html",
+    "category": "Action"
+  },
+  {
+    "id": "basketball-legends-2020",
+    "title": "Basketball Legends 2020",
+    "description": "Play as legendary basketball stars in this high-energy sports game. Hit 3-pointers, dunk, and dominate the court.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec",
+    "category": "Sports"
+  },
+  {
+    "id": "a-small-world-cup",
+    "title": "A Small World Cup",
+    "description": "Experience the thrill of a miniaturized soccer tournament! Master simple controls and lead your team to World Cup glory.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwSK5IqLXbZppMz9znIJVycB4BZCHodE3uSgUF4C1fReEqmMSDYua81Ew7Rp-Cn85gojg/exec",
+    "category": "Sports"
+  },
+  {
+    "id": "choppy-orc",
+    "title": "Choppy Orc",
+    "description": "Master the art of axe-throwing in this clever puzzle-platformer. Use your axe to overcome obstacles and save your friends.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbz5ommMF6x7X0RoIJrRYPQ-Gh148A32snv1YCzqeu4YWpJXNW4uH8xQo13pIZ6N_f_o/exec",
+    "category": "Puzzle"
+  },
+  {
+    "id": "drift-boss",
+    "title": "Drift Boss",
+    "description": "Master the art of drifting in this high-speed, one-tap car racing game. Navigate sharp turns and unlock new vehicles.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwAOi2tPbjzeWDkigfZMIPEGubYxz2la_jxJyydNZyjwgbqsv9mv05g7tdmLHdvdaw/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "retro-bowl",
+    "title": "Retro Bowl",
+    "description": "The ultimate retro-style American football experience. Manage your team, call the plays, and lead your franchise to victory.",
+    "iframeUrl": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
+    "category": "Sports"
+  },
+  {
+    "id": "sling-race",
+    "title": "Sling Race",
+    "description": "Hook, swing, and sling your way to victory! Master physics-based cornering in this unique racing experience.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwJcI7plLpRyTV5dGOj_nAsNJaDbGtcBRwqbBwGBbfCQetCpRryftQsGFC0ZFZ6tjQYA/exec",
+    "category": "Racing"
+  },
+  {
+    "id": "slope",
+    "title": "Slope",
+    "description": "A high-speed 3D running game. Control a ball rolling down a steep slope and avoid obstacles.",
+    "iframeUrl": "https://kdata1.com/2020/05/slope/",
+    "category": "Action"
+  },
+  {
+    "id": "the-final-earth-2",
+    "title": "The Final Earth 2",
+    "description": "Build a vertical city in space! A complex city builder and resource management game where you design a thriving civilization on a small rock.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwPukuXlFUYp6rckvxxtA6R-hBdqPg5co9pvpC2y-FZUc3VcJSeXd6jP5CrB1l6u-k4bA/exec",
+    "category": "Strategy"
+  },
+  {
+    "id": "angry-birds",
+    "title": "Angry Birds",
+    "description": "The classic bird-slinging puzzle game. Use unique powers of the Angry Birds to destroy the greedy pigs' defenses!",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycby30nrhMSPeJyfgpPQfLsVVhOxjjyErkIsQtoYAzPkRYenYcSBpVyMcOwXy_flMCjFm/exec",
+    "category": "Puzzle"
+  },
+  {
+    "id": "burrito-bison",
+    "title": "Burrito Bison",
+    "description": "Launch Burrito Bison through the air, squashing gummies and taking down the gummy boss in this high-velocity action game!",
+    "iframeUrl": "https://ubg66.gitlab.io/burrito-bison/",
+    "category": "Action"
+  },
+  {
+    "id": "jetpack-joyride",
+    "title": "Jetpack Joyride",
+    "description": "Fly high with a machine gun jetpack! Dodge obstacles and collect coins in this endless runner classic.",
+    "iframeUrl": "https://ubg66.gitlab.io/jetpack-joyride-browser/",
+    "category": "Action"
+  },
+  {
+    "id": "eggy-car",
+    "title": "Eggy Car",
+    "description": "Drive a car with an egg! Master the physics and keep the egg safe on your journey.",
+    "iframeUrl": "https://ubg66.gitlab.io/eggy-car/",
+    "category": "Racing"
+  },
+  {
+    "id": "tunnel-rush",
+    "title": "Tunnel Rush",
+    "description": "Speed through tunnels at high velocity. Dodge everything!",
+    "iframeUrl": "https://ubg66.gitlab.io/tunnel-rush/",
+    "category": "Action"
+  },
+  {
+    "id": "doodle-jump",
+    "title": "Doodle Jump",
+    "description": "Jump as high as you can on a never-ending series of platforms.",
+    "iframeUrl": "https://ubg66.gitlab.io/doodle-jump/",
+    "category": "Arcade"
+  },
+  {
+    "id": "stickman-hook",
+    "title": "Stickman Hook",
+    "description": "Swing like a spider! Master the physics of the hook to reach the finish line in this addictive arcade swinger.",
+    "iframeUrl": "https://ubg66.gitlab.io/stickman-hook/",
+    "category": "Action"
+  },
+  {
+    "id": "bitlife",
+    "title": "BitLife",
+    "description": "A comprehensive life simulator. Make choices, build a career, start a family, and see where life takes you.",
+    "iframeUrl": "https://ubg66.gitlab.io/bitlife/",
+    "category": "Simulation"
+  },
+  {
+    "id": "crossy-road",
+    "title": "Crossy Road",
+    "description": "Navigate through endless traffic, rivers, and train tracks. How far can you get without getting squashed?",
+    "iframeUrl": "https://ubg66.gitlab.io/crossy-road/",
+    "category": "Arcade"
+  },
+  {
+    "id": "tiny-fishing",
+    "title": "Tiny Fishing",
+    "description": "Cast your line and catch as many fish as you can in this addictive arcade fishing game.",
+    "iframeUrl": "https://ubg66.gitlab.io/tiny-fishing/",
+    "category": "Arcade"
+  },
+  {
+    "id": "temple-run-2",
+    "title": "Temple Run 2",
+    "description": "The sequel to the smash hit phenomenon! Run, jump, and slide away from the cursed idol.",
+    "iframeUrl": "https://ubg66.gitlab.io/temple-run-2/",
+    "category": "Action"
+  },
+  {
+    "id": "subway-surfers",
+    "title": "Subway Surfers",
+    "description": "Dash as fast as you can and dodge the oncoming trains in this world-famous endless runner.",
+    "iframeUrl": "https://ubg66.gitlab.io/subway-surfers/",
+    "category": "Action"
+  },
+  {
+    "id": "cookie-clicker",
+    "title": "Cookie Clicker",
+    "description": "Bake an astronomical amount of cookies in this legendary idle clicker game.",
+    "iframeUrl": "https://ubg66.gitlab.io/cookie-clicker/",
+    "category": "Arcade"
+  },
+  {
+    "id": "1v1-lol",
+    "title": "1v1.LOL",
+    "description": "Build, edit, and fight! Battle other players in this fast-paced 3D shooter and construction game.",
+    "iframeUrl": "https://ubg66.gitlab.io/1v1-lol/",
+    "category": "Action"
+  },
+  {
+    "id": "run-3",
+    "title": "Run 3",
+    "description": "Run into a forbidden area... in space! Dodge holes and gravity in this endless tunnel runner.",
+    "iframeUrl": "https://ubg66.gitlab.io/run-3/",
+    "category": "Action"
+  },
+  {
+    "id": "basket-random",
+    "title": "Basket Random",
+    "description": "Two-player physics-based basketball. Anything can happen in this wacky sports game!",
+    "iframeUrl": "https://ubg66.gitlab.io/basket-random/",
+    "category": "Sports"
+  },
+  {
+    "id": "super-mario-64",
+    "title": "Super Mario 64",
+    "description": "The legendary 3D platformer. Explore Princess Peach's castle and collect the Power Stars.",
+    "iframeUrl": "https://ubg66.gitlab.io/super-mario-64/",
+    "category": "Retro"
+  },
+  {
+    "id": "drive-mad",
+    "title": "Drive Mad",
+    "description": "Drive your way through challenging levels filled with physics-based obstacles.",
+    "iframeUrl": "https://ubg66.gitlab.io/drive-mad/",
+    "category": "Racing"
+  },
+  {
+    "id": "soccer-random",
+    "title": "Soccer Random",
+    "description": "Fun and unpredictable physics soccer. Just one button to jump and kick!",
+    "iframeUrl": "https://ubg66.gitlab.io/soccer-random/",
+    "category": "Sports"
+  },
+  {
+    "id": "boxing-random",
+    "title": "Boxing Random",
+    "description": "The wildest boxing match you'll ever see. Can you knock out your opponent?",
+    "iframeUrl": "https://ubg66.gitlab.io/boxing-random/",
+    "category": "Sports"
+  },
+  {
+    "id": "volley-random",
+    "title": "Volley Random",
+    "description": "Physics-based volleyball with a twist of randomness. Fun for two players!",
+    "iframeUrl": "https://ubg66.gitlab.io/volley-random/",
+    "category": "Sports"
+  },
+  {
+    "id": "ovo",
+    "title": "OvO",
+    "description": "A fast-paced platformer where you use parkour moves to reach the flag.",
+    "iframeUrl": "https://ubg66.gitlab.io/ovo/",
+    "category": "Action"
+  },
+  {
+    "id": "vex-4",
+    "title": "Vex 4",
+    "description": "The fourth installment of the epic stickman parkour series. Harder levels, more traps.",
+    "iframeUrl": "https://ubg66.gitlab.io/vex-4/",
+    "category": "Action"
+  },
+  {
+    "id": "vex-5",
+    "title": "Vex 5",
+    "description": "Take on the challenge of Vex 5. New obstacles and even faster gameplay.",
+    "iframeUrl": "https://ubg66.gitlab.io/vex-5/",
+    "category": "Action"
+  },
+  {
+    "id": "dreadhead-parkour",
+    "title": "Dreadhead Parkour",
+    "description": "A fast-paced parkour game where you must navigate through challenging urban environments.",
+    "iframeUrl": "https://ubg66.gitlab.io/dreadhead-parkour/",
+    "category": "Action"
   },
   {
     "id": "cluster-rush",
@@ -16,7 +296,7 @@
   {
     "id": "friday-night-funkin",
     "title": "Friday Night Funkin'",
-    "description": "A rhythm game where you battle opponents in musical duels.",
+    "description": "A rhythm game where you battle opponents in musical duels to win over your girlfriend.",
     "iframeUrl": "https://ubg66.gitlab.io/fnf-classic/",
     "category": "Music"
   },
@@ -28,129 +308,31 @@
     "category": "Arcade"
   },
   {
-    "id": "hollow-knight",
-    "title": "Hollow Knight",
-    "description": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom.",
-    "iframeUrl": "https://db.art.fullsusmtb.org/html/hollow_knight/index.html",
+    "id": "getaway-shootout",
+    "title": "Getaway Shootout",
+    "description": "Race to the getaway vehicle in this wacky, physics-based shooter.",
+    "iframeUrl": "https://ubg66.gitlab.io/getaway-shootout/",
     "category": "Action"
   },
   {
-    "id": "basketball-legends-2020",
-    "title": "Basketball Legends 2020",
-    "description": "Play as legendary basketball stars in this high-energy sports game.",
-    "iframeUrl": "https://script.google.com/macros/s/AKfycbE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec",
-    "category": "Sports"
-  },
-  {
-    "id": "retro-bowl",
-    "title": "Retro Bowl",
-    "description": "The ultimate retro-style American football experience.",
-    "iframeUrl": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
-    "category": "Sports"
-  },
-  {
-    "id": "slope",
-    "title": "Slope",
-    "description": "A high-speed 3D running game. Control a ball rolling down a steep slope.",
-    "iframeUrl": "https://kdata1.com/2020/05/slope/",
-    "category": "Action"
-  },
-  {
-    "id": "angry-birds",
-    "title": "Angry Birds",
-    "description": "The classic bird-slinging puzzle game.",
-    "iframeUrl": "https://script.google.com/macros/s/AKfycby30nrhMSPeJyfgpPQfLsVVhOxjjyErkIsQtoYAzPkRYenYcSBpVyMcOwXy_flMCjFm/exec",
-    "category": "Puzzle"
-  },
-  {
-    "id": "burrito-bison",
-    "title": "Burrito Bison",
-    "description": "Launch Burrito Bison through the air, squashing gummies!",
-    "iframeUrl": "https://ubg66.gitlab.io/burrito-bison/",
-    "category": "Action"
-  },
-  {
-    "id": "jetpack-joyride",
-    "title": "Jetpack Joyride",
-    "description": "Fly high with a machine gun jetpack!",
-    "iframeUrl": "https://ubg66.gitlab.io/jetpack-joyride-browser/",
-    "category": "Action"
-  },
-  {
-    "id": "eggy-car",
-    "title": "Eggy Car",
-    "description": "Drive a car with an egg! Master the physics.",
-    "iframeUrl": "https://ubg66.gitlab.io/eggy-car/",
+    "id": "snow-rider-3d",
+    "title": "Snow Rider 3D",
+    "description": "Sleigh your way down a snowy mountain while dodging obstacles and collecting presents.",
+    "iframeUrl": "https://ubg66.gitlab.io/snow-rider-3d/",
     "category": "Racing"
   },
   {
-    "id": "tunnel-rush",
-    "title": "Tunnel Rush",
-    "description": "Speed through tunnels at high velocity.",
-    "iframeUrl": "https://ubg66.gitlab.io/tunnel-rush/",
-    "category": "Action"
+    "id": "smash-karts",
+    "title": "Smash Karts",
+    "description": "Battle other players in karts and use power-ups to blow them away in this 3D arena shooter.",
+    "iframeUrl": "https://ubg66.gitlab.io/smash-karts/",
+    "category": "Racing"
   },
   {
-    "id": "doodle-jump",
-    "title": "Doodle Jump",
-    "description": "Jump as high as you can.",
-    "iframeUrl": "https://ubg66.gitlab.io/doodle-jump/",
-    "category": "Arcade"
-  },
-  {
-    "id": "stickman-hook",
-    "title": "Stickman Hook",
-    "description": "Swing like a spider!",
-    "iframeUrl": "https://ubg66.gitlab.io/stickman-hook/",
-    "category": "Action"
-  },
-  {
-    "id": "bitlife",
-    "title": "BitLife",
-    "description": "A comprehensive life simulator.",
-    "iframeUrl": "https://ubg66.gitlab.io/bitlife/",
-    "category": "Simulation"
-  },
-  {
-    "id": "crossy-road",
-    "title": "Crossy Road",
-    "description": "Navigate through endless traffic.",
-    "iframeUrl": "https://ubg66.gitlab.io/crossy-road/",
-    "category": "Arcade"
-  },
-  {
-    "id": "tiny-fishing",
-    "title": "Tiny Fishing",
-    "description": "Cast your line and catch as many fish as you can.",
-    "iframeUrl": "https://ubg66.gitlab.io/tiny-fishing/",
-    "category": "Arcade"
-  },
-  {
-    "id": "temple-run-2",
-    "title": "Temple Run 2",
-    "description": "The sequel to the smash hit phenomenon!",
-    "iframeUrl": "https://ubg66.gitlab.io/temple-run-2/",
-    "category": "Action"
-  },
-  {
-    "id": "subway-surfers",
-    "title": "Subway Surfers",
-    "description": "Dash as fast as you can and dodge oncoming trains.",
-    "iframeUrl": "https://ubg66.gitlab.io/subway-surfers/",
-    "category": "Action"
-  },
-  {
-    "id": "cookie-clicker",
-    "title": "Cookie Clicker",
-    "description": "Bake an astronomical amount of cookies.",
-    "iframeUrl": "https://ubg66.gitlab.io/cookie-clicker/",
-    "category": "Arcade"
-  },
-  {
-    "id": "1v1-lol",
-    "title": "1v1.LOL",
-    "description": "Build, edit, and fight!",
-    "iframeUrl": "https://ubg66.gitlab.io/1v1-lol/",
+    "id": "tube-jumpers",
+    "title": "Tube Jumpers",
+    "description": "Stay on the tube as long as possible while being tossed around by massive waves and sharks.",
+    "iframeUrl": "https://ubg66.gitlab.io/tube-jumpers/",
     "category": "Action"
   }
 ]
