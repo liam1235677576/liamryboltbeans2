@@ -98,17 +98,24 @@
     "category": "Racing"
   },
   {
-    "id": "papas-pizzeria",
-    "title": "Papa's Pizzeria",
-    "description": "The legendary cooking sim by Flipline Studios. Take orders, bake pizzas, and serve hungry customers.",
-    "iframeUrl": "https://db.art.fullsusmtb.org/html/papaspizzeria/index.html",
-    "category": "Simulation"
-  },
-  {
     "id": "slope",
     "title": "Slope",
     "description": "A high-speed 3D running game. Control a ball rolling down a steep slope and avoid obstacles.",
     "iframeUrl": "https://kdata1.com/2020/05/slope/",
     "category": "Action"
+  },
+  {
+    "id": "the-final-earth-2",
+    "title": "The Final Earth 2",
+    "description": "Build a vertical city in space! A complex city builder and resource management game where you design a thriving civilization on a small rock.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwPukuXlFUYp6rckvxxtA6R-hBdqPg5co9pvpC2y-FZUc3VcJSeXd6jP5CrB1l6u-k4bA/exec",
+    "category": "Strategy"
+  },
+  {
+    "id": "angry-birds",
+    "title": "Angry Birds",
+    "description": "The classic bird-slinging puzzle game. Use unique powers of the Angry Birds to destroy the greedy pigs' defenses!",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycby30nrhMSPeJyfgpPQfLsVVhOxjjyErkIsQtoYAzPkRYenYcSBpVyMcOwXy_flMCjFm/exec",
+    "category": "Puzzle"
   }
 ]
