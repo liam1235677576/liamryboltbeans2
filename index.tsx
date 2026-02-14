@@ -14,10 +14,52 @@ const FALLBACK_GAMES = [
     "category": "Racing"
   },
   {
+    "id": "cluster-rush",
+    "title": "Cluster Rush",
+    "description": "Jump from truck to truck in this high-speed, heart-pounding arcade runner.",
+    "iframeUrl": "https://ubg66.gitlab.io/cluster-rush/",
+    "category": "Action"
+  },
+  {
+    "id": "friday-night-funkin",
+    "title": "Friday Night Funkin'",
+    "description": "A rhythm game where you battle opponents in musical duels.",
+    "iframeUrl": "https://ubg66.gitlab.io/fnf-classic/",
+    "category": "Music"
+  },
+  {
+    "id": "geometry-dash",
+    "title": "Geometry Dash",
+    "description": "Jump and fly your way through danger in this rhythm-based action platformer.",
+    "iframeUrl": "https://ubg66.gitlab.io/geometry-dash/",
+    "category": "Arcade"
+  },
+  {
     "id": "hollow-knight",
     "title": "Hollow Knight",
     "description": "Forge your own path! An epic action adventure through a vast ruined kingdom.",
     "iframeUrl": "https://db.art.fullsusmtb.org/html/hollow_knight/index.html",
+    "category": "Action"
+  },
+  {
+    "id": "basketball-legends-2020",
+    "title": "Basketball Legends 2020",
+    "description": "Play as legendary basketball stars in this high-energy sports game.",
+    "iframeUrl": "https://script.google.com/macros/s/AKfycbwE6Cy_4gnECeA-6JH6xldzGnFQlBC9xPqS1Jlru8kF2Wr4LMshHeNa2jEJjM5cYfz4Pw/exec",
+    "category": "Sports"
+  },
+  {
+    "id": "retro-bowl",
+    "title": "Retro Bowl",
+    "description": "The ultimate retro-style American football experience.",
+    "iframeUrl": "https://game316009.konggames.com/gamez/0031/6009/live/index.html",
+    "category": "Sports"
+  },
+  {
+    "id": "slope",
+    "title": "Slope",
+    "description": "A high-speed 3D running game. Control a ball rolling down a steep slope.",
+    "iframeUrl": "https://kdata1.com/2020/05/slope/",
     "category": "Action"
   },
   {
@@ -117,115 +159,33 @@ const FALLBACK_GAMES = [
     "description": "Build, edit, and fight!",
     "iframeUrl": "https://ubg66.gitlab.io/1v1-lol/",
     "category": "Action"
-  },
-  {
-    "id": "run-3",
-    "title": "Run 3",
-    "description": "Run into a forbidden area... in space!",
-    "iframeUrl": "https://ubg66.gitlab.io/run-3/",
-    "category": "Action"
-  },
-  {
-    "id": "basket-random",
-    "title": "Basket Random",
-    "description": "Two-player physics-based basketball.",
-    "iframeUrl": "https://ubg66.gitlab.io/basket-random/",
-    "category": "Sports"
-  },
-  {
-    "id": "super-mario-64",
-    "title": "Super Mario 64",
-    "description": "The legendary 3D platformer.",
-    "iframeUrl": "https://ubg66.gitlab.io/super-mario-64/",
-    "category": "Retro"
-  },
-  {
-    "id": "drive-mad",
-    "title": "Drive Mad",
-    "description": "Drive your way through challenging levels.",
-    "iframeUrl": "https://ubg66.gitlab.io/drive-mad/",
-    "category": "Racing"
-  },
-  {
-    "id": "soccer-random",
-    "title": "Soccer Random",
-    "description": "Fun and unpredictable physics soccer.",
-    "iframeUrl": "https://ubg66.gitlab.io/soccer-random/",
-    "category": "Sports"
-  },
-  {
-    "id": "boxing-random",
-    "title": "Boxing Random",
-    "description": "The wildest boxing match you'll ever see.",
-    "iframeUrl": "https://ubg66.gitlab.io/boxing-random/",
-    "category": "Sports"
-  },
-  {
-    "id": "volley-random",
-    "title": "Volley Random",
-    "description": "Physics-based volleyball with a twist.",
-    "iframeUrl": "https://ubg66.gitlab.io/volley-random/",
-    "category": "Sports"
-  },
-  {
-    "id": "ovo",
-    "title": "OvO",
-    "description": "A fast-paced parkour platformer.",
-    "iframeUrl": "https://ubg66.gitlab.io/ovo/",
-    "category": "Action"
-  },
-  {
-    "id": "vex-4",
-    "title": "Vex 4",
-    "description": "Epic stickman parkour series.",
-    "iframeUrl": "https://ubg66.gitlab.io/vex-4/",
-    "category": "Action"
-  },
-  {
-    "id": "vex-5",
-    "title": "Vex 5",
-    "description": "Take on the challenge of Vex 5.",
-    "iframeUrl": "https://ubg66.gitlab.io/vex-5/",
-    "category": "Action"
-  },
-  {
-    "id": "dreadhead-parkour",
-    "title": "Dreadhead Parkour",
-    "description": "Navigate through challenging urban environments.",
-    "iframeUrl": "https://ubg66.gitlab.io/dreadhead-parkour/",
-    "category": "Action"
-  },
-  {
-    "id": "getaway-shootout",
-    "title": "Getaway Shootout",
-    "description": "Race to the getaway vehicle!",
-    "iframeUrl": "https://ubg66.gitlab.io/getaway-shootout/",
-    "category": "Action"
-  },
-  {
-    "id": "snow-rider-3d",
-    "title": "Snow Rider 3D",
-    "description": "Sleigh down a snowy mountain.",
-    "iframeUrl": "https://ubg66.gitlab.io/snow-rider-3d/",
-    "category": "Racing"
-  },
-  {
-    "id": "smash-karts",
-    "title": "Smash Karts",
-    "description": "Battle other players in karts.",
-    "iframeUrl": "https://ubg66.gitlab.io/smash-karts/",
-    "category": "Racing"
-  },
-  {
-    "id": "tube-jumpers",
-    "title": "Tube Jumpers",
-    "description": "Stay on the tube as long as possible.",
-    "iframeUrl": "https://ubg66.gitlab.io/tube-jumpers/",
-    "category": "Action"
   }
 ];
 
-const Header = ({ onSearch, favoritesCount }) => (
+interface HeaderProps {
+  onSearch: (value: string) => void;
+  favoritesCount: number;
+}
+
+interface GameCardProps {
+  game: any;
+  isFavorite: boolean;
+  toggleFavorite: (id: string) => void;
+}
+
+interface GamePlayerProps {
+  game: any;
+  isFavorite: boolean;
+  toggleFavorite: (id: string) => void;
+}
+
+interface PlayRouteProps {
+  games: any[];
+  favorites: string[];
+  toggleFavorite: (id: string) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onSearch, favoritesCount }) => (
   <header className="sticky top-0 z-50 glass-nav px-4 py-4">
     <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
       <Link to="/" className="flex items-center gap-3 group">
@@ -259,7 +219,7 @@ const Header = ({ onSearch, favoritesCount }) => (
   </header>
 );
 
-const GameCard = ({ game, isFavorite, toggleFavorite }) => (
+const GameCard: React.FC<GameCardProps> = ({ game, isFavorite, toggleFavorite }) => (
   <div className="group relative glass-card rounded-2xl overflow-hidden shadow-2xl">
     <Link to={`/play/${game.id}`} className="block">
       <div className="aspect-video relative overflow-hidden bg-slate-950 flex items-center justify-center">
@@ -289,13 +249,13 @@ const GameCard = ({ game, isFavorite, toggleFavorite }) => (
   </div>
 );
 
-const GamePlayer = ({ game, isFavorite, toggleFavorite }) => {
+const GamePlayer: React.FC<GamePlayerProps> = ({ game, isFavorite, toggleFavorite }) => {
   const [isLoading, setIsLoading] = useState(true);
   const frameRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     const originalTitle = document.title;
-    document.title = `${game.title} | Hub`;
+    document.title = `${game.title} | LiamRyboltBeans`;
     setIsLoading(true);
     return () => { document.title = originalTitle; };
   }, [game.id, game.title]);
@@ -311,14 +271,16 @@ const GamePlayer = ({ game, isFavorite, toggleFavorite }) => {
 
   const requestFullscreen = () => {
     if (frameRef.current) {
-      if (frameRef.current.requestFullscreen) frameRef.current.requestFullscreen();
-      // @ts-ignore
-      else if (frameRef.current.webkitRequestFullscreen) frameRef.current.webkitRequestFullscreen();
+      if (frameRef.current.requestFullscreen) {
+        frameRef.current.requestFullscreen();
+      } else if ((frameRef.current as any).webkitRequestFullscreen) {
+        (frameRef.current as any).webkitRequestFullscreen();
+      }
     }
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+    <div className="max-w-6xl mx-auto p-4 md:p-8 animate-in fade-in duration-500">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors group">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
@@ -381,10 +343,10 @@ const GamePlayer = ({ game, isFavorite, toggleFavorite }) => {
   );
 };
 
-const App = () => {
+const App: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [games, setGames] = useState(FALLBACK_GAMES);
+  const [games, setGames] = useState<any[]>(FALLBACK_GAMES);
 
   useEffect(() => {
     const stored = localStorage.getItem('bean_favorites');
@@ -395,7 +357,7 @@ const App = () => {
       .then(data => {
         if (Array.isArray(data) && data.length > 0) setGames(data);
       })
-      .catch(err => console.log("System: Fallback library active."));
+      .catch(() => setGames(FALLBACK_GAMES));
   }, []);
 
   const toggleFavorite = (id: string) => {
@@ -420,14 +382,12 @@ const App = () => {
               <div className="mb-14 flex flex-col border-l-4 border-blue-500 pl-6 py-2">
                 <h1 className="text-5xl font-black font-orbitron tracking-tighter text-white uppercase italic neon-text">LiamRyboltBeans</h1>
               </div>
-              
-              {filteredGames.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                  {filteredGames.map(game => (
-                    <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />
-                  ))}
-                </div>
-              ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                {filteredGames.map(game => (
+                  <GameCard key={game.id} game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />
+                ))}
+              </div>
+              {filteredGames.length === 0 && (
                 <div className="text-center py-24 glass-card rounded-[3rem] border-dashed border-slate-700">
                   <p className="font-orbitron uppercase tracking-widest text-slate-600 text-[10px]">Archives_Empty</p>
                 </div>
@@ -437,40 +397,37 @@ const App = () => {
           <Route path="/favorites" element={
             <div className="max-w-7xl mx-auto px-4 py-16">
               <h2 className="text-2xl font-black mb-10 flex items-center gap-4 font-orbitron uppercase neon-text">Saved_Jar</h2>
-              {games.filter(g => favorites.includes(g.id)).length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                  {games.filter(g => favorites.includes(g.id)).map(game => <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />)}
-                </div>
-              ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+                {games.filter(g => favorites.includes(g.id)).map(game => (
+                  <GameCard key={game.id} game={game} isFavorite={true} toggleFavorite={toggleFavorite} />
+                ))}
+              </div>
+              {favorites.length === 0 && (
                 <div className="text-center py-32 glass-card rounded-[3rem] border border-dashed border-slate-800">
                   <p className="text-slate-500 font-orbitron tracking-[0.5em] text-[10px] uppercase">No_Saved_Modules</p>
-                  <Link to="/" className="inline-block mt-8 text-blue-500 font-orbitron text-[10px] hover:underline uppercase tracking-widest">Return_Home</Link>
                 </div>
               )}
             </div>
           } />
-          <Route path="/play/:id" element={<PlayWrapper games={games} favorites={favorites} toggleFavorite={toggleFavorite} />} />
+          <Route path="/play/:id" element={
+            <PlayRoute games={games} favorites={favorites} toggleFavorite={toggleFavorite} />
+          } />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <footer className="py-20 border-t border-slate-800/30 glass-nav">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center gap-6 text-center">
-           <div className="text-4xl hover:scale-110 transition-transform cursor-default">🫘</div>
-           <div className="text-[10px] text-slate-500 font-orbitron tracking-[0.8em] uppercase">
-             LIAMRYBOLTBEANS
-           </div>
-        </div>
-      </footer>
     </div>
   );
 };
 
-const PlayWrapper = ({ games, favorites, toggleFavorite }) => {
-  const { id } = useParams();
+const PlayRoute: React.FC<PlayRouteProps> = ({ games, favorites, toggleFavorite }) => {
+  const { id } = useParams<{ id: string }>();
   const game = games.find(g => g.id === id);
-  if (!game) return <div className="p-32 text-center text-slate-500 font-orbitron tracking-[0.4em] uppercase text-[11px] animate-pulse">Syncing_Nodes...</div>;
+  if (!game) return <Navigate to="/" />;
   return <GamePlayer game={game} isFavorite={favorites.includes(game.id)} toggleFavorite={toggleFavorite} />;
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root')!);
-root.render(<HashRouter><App /></HashRouter>);
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(<HashRouter><App /></HashRouter>);
+}
