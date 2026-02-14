@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LiamRyboltBeans | Unblocked Gaming Hub</title>
+  <title>LiamRyboltBeans</title>
   
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🫘</text></svg>">
 
@@ -70,6 +70,15 @@
     .status-pulse {
       animation: pulse-border 2s infinite;
     }
+
+    .cloak-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
+    .cloak-btn:hover {
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+      transform: translateY(-2px);
+    }
   </style>
 
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -96,7 +105,7 @@
     import { 
       Search, Heart, Maximize2, RotateCcw, ArrowLeft, Play, Sparkles, 
       Trophy, Layers, AlertCircle, Terminal, Zap, Filter, Gamepad2, 
-      ExternalLink, Info, ShieldCheck
+      ExternalLink, Info, ShieldCheck, Ghost, Flame, Settings2
     } from 'lucide-react';
 
     const DEFAULT_GAMES = [
@@ -221,7 +230,7 @@
             <div className="bg-blue-500 p-2 rounded-xl group-hover:bg-blue-400 transition-all shadow-lg shadow-blue-500/20 group-hover:rotate-12 w-10 h-10 flex items-center justify-center text-xl">
               🫘
             </div>
-            <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block text-white uppercase text-glow">
+            <span className="font-orbitron text-xl font-bold tracking-tighter hidden sm:block text-white uppercase">
               LiamRybolt<span className="text-blue-500">Beans</span>
             </span>
           </Link>
@@ -229,7 +238,7 @@
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input
               type="text"
-              placeholder="Search unblocked library..."
+              placeholder="Search library..."
               onChange={(e) => onSearch(e.target.value)}
               className="w-full bg-slate-800 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all text-slate-100"
             />
@@ -298,8 +307,43 @@
         }
       };
 
-      const openExternal = () => {
-        window.open(game.iframeUrl, '_blank');
+      const openStrictBypass = () => {
+        const html = `
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+              <title>${game.title} | Secure Tunnel</title>
+              <style>
+                body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #000; }
+                iframe { width: 100%; height: 100%; border: none; background: #000; }
+                #warning { 
+                  position: fixed; top: 10px; left: 10px; color: #333; font-family: sans-serif; 
+                  font-size: 10px; pointer-events: none; opacity: 0.2; 
+                }
+              </style>
+            </head>
+            <body>
+              <div id="warning">BEANS_SECURE_TUNNEL</div>
+              <iframe 
+                src="${game.iframeUrl}" 
+                allow="autoplay; fullscreen; gamepad; focus-without-user-activation *" 
+                allowfullscreen="true">
+              </iframe>
+            </body>
+          </html>
+        `;
+        
+        const blob = new Blob([html], { type: 'text/html' });
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const win = window.open('about:blank', '_blank');
+        if (win) {
+          win.location.href = blobUrl;
+        } else {
+          alert("Pop-up blocked! Please allow pop-ups in Safari settings.");
+        }
       };
 
       const rawIframeString = useMemo(() => {
@@ -339,7 +383,7 @@
                 </h1>
                 <p className="text-[10px] text-slate-500 font-orbitron tracking-tighter uppercase flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
-                  STATUS: SECURE_TUNNEL_ACTIVE
+                  TUNNEL: ACTIVE
                 </p>
               </div>
               <div className="flex items-center gap-4 flex-wrap justify-center">
@@ -351,12 +395,12 @@
                   <RotateCcw className="w-6 h-6" />
                 </button>
                 <button 
-                  onClick={openExternal}
-                  title="Open in New Tab (Bypass Fix)"
-                  className="p-5 bg-slate-800 text-slate-400 hover:text-blue-500 hover:bg-slate-700 rounded-2xl transition-all border border-slate-700 flex items-center gap-3"
+                  onClick={openStrictBypass}
+                  title="Advanced iPad Filter Bypass (Blob Mode)"
+                  className="px-6 py-5 cloak-btn text-white rounded-2xl transition-all flex items-center gap-3 font-orbitron font-bold text-xs"
                 >
-                  <ExternalLink className="w-6 h-6" />
-                  <span className="font-orbitron text-xs hidden sm:block">EXTERNAL_LINK</span>
+                  <Ghost className="w-5 h-5" />
+                  STRICT_BYPASS
                 </button>
                 <button 
                   onClick={requestFullscreen} 
@@ -389,19 +433,36 @@
               <div className="p-8 bg-slate-900/50 rounded-3xl border border-slate-800/50 status-pulse">
                 <h2 className="font-orbitron text-white text-sm tracking-widest uppercase mb-6 flex items-center gap-2">
                    <ShieldCheck className="w-4 h-4 text-blue-500" />
-                   System_Diagnosis
+                   Ruffle_WASM_Wiki_Fix
                  </h2>
-                 <div className="space-y-4">
+                 <div className="space-y-6">
                    <div className="flex gap-4">
                      <div className="bg-blue-500/10 p-3 rounded-xl h-fit">
-                       <Info className="w-5 h-5 text-blue-500" />
+                       <Flame className="w-5 h-5 text-blue-500" />
                      </div>
                      <div>
-                       <h4 className="text-white font-bold mb-1">Fix for iPad/School Filters</h4>
-                       <p className="text-slate-400 text-xs leading-relaxed">
-                         If you see "Ruffle failed to load WASM," click the <span className="text-blue-500 font-bold">EXTERNAL_LINK</span> button. 
-                         School iPads often block game components when they are inside of an iframe. Opening the link directly usually fixes this.
+                       <h4 className="text-white font-bold mb-1">Step 1: Use Blob Cloaking</h4>
+                       <p className="text-slate-400 text-xs leading-relaxed mb-2">
+                         The <span className="text-blue-400 font-bold">STRICT_BYPASS</span> button now uses a <strong>Blob URL</strong>. This hides the site from iPad network filters that block ".wasm" files in iframes.
                        </p>
+                     </div>
+                   </div>
+
+                   <div className="flex gap-4 border-t border-slate-800 pt-6">
+                     <div className="bg-slate-800 p-3 rounded-xl h-fit">
+                       <Settings2 className="w-5 h-5 text-slate-400" />
+                     </div>
+                     <div>
+                       <h4 className="text-white font-bold mb-1">Step 2: Safari Experimental Settings</h4>
+                       <p className="text-slate-400 text-xs leading-relaxed mb-4">
+                         If it still fails, your school has likely disabled WASM in Safari settings. Try to re-enable it:
+                       </p>
+                       <ul className="text-slate-300 text-[10px] space-y-2 font-mono uppercase tracking-tight">
+                         <li>1. OPEN [SETTINGS] APP</li>
+                         <li>2. SELECT [SAFARI] > [ADVANCED]</li>
+                         <li>3. SELECT [EXPERIMENTAL FEATURES]</li>
+                         <li>4. ENSURE [WEBASSEMBLY] IS TOGGLED <span className="text-green-500 font-bold">ON</span></li>
+                       </ul>
                      </div>
                    </div>
                  </div>
@@ -411,10 +472,10 @@
             <div className="p-8 bg-blue-500/5 rounded-3xl border border-blue-500/20 h-fit">
                <div className="flex items-center gap-3 mb-4">
                  <AlertCircle className="w-5 h-5 text-blue-500" />
-                 <h3 className="font-orbitron text-blue-500 text-sm tracking-widest uppercase">Advisory</h3>
+                 <h3 className="font-orbitron text-blue-500 text-sm tracking-widest uppercase">Admin Advisory</h3>
                </div>
                <p className="text-[10px] text-slate-500 leading-relaxed font-orbitron uppercase tracking-widest">
-                 Games are proxied for accessibility. If a module fails to sync, try refreshing or checking your network tunnel. Some assets may be restricted by institutional firewalls.
+                  Restricted iPad profiles often block binary execution environments. Blob-cloaking is the final tier of unblocking.
                </p>
             </div>
           </div>
